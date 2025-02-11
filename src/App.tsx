@@ -6,6 +6,7 @@ import Team from "./pages/Team";
 import Footer from "./components/Footer";
 import CustomCursor from "./components/CustomCursor";
 import EventDetail from "./pages/EventDetail";
+import Admin from "./pages/Admin";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/events" element={<Events />} />
           <Route path="/team" element={<Team />} />
           <Route path="/events/:eventId" element={<EventDetail />} />
+          <Route path="/psnaAdmin" element={<Admin />} />
         </Routes>
         <Footer />
       </Router>

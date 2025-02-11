@@ -23,6 +23,7 @@ module.exports = {
           'bounce-slow': 'bounce 2s infinite',
           'scrollDown': 'scrollDown 1.5s ease-in-out infinite',
           'modalSlideIn': 'modalSlideIn 0.3s ease-out',
+          'successFadeIn': 'successFadeIn 0.5s ease-out forwards',
         },
         keyframes: {
           fadeIn: {
@@ -54,6 +55,16 @@ module.exports = {
             '100%': { 
               transform: 'translateY(0)',
               opacity: '1'
+            },
+          },
+          successFadeIn: {
+            '0%': {
+              opacity: '0',
+              transform: 'scale(0.9)',
+            },
+            '100%': {
+              opacity: '1',
+              transform: 'scale(1)',
             },
           },
         },
