@@ -43,29 +43,37 @@ const Moments = () => {
     const handleUpload = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!selectedFile) return;
-
+    
         setIsUploading(true);
         const formData = new FormData();
         formData.append('file', selectedFile);
-        formData.append('upload_preset', 'fest-moments'); //dyglppjr6
+        formData.append('upload_preset', 'fest-moments');
         formData.append('tags', 'fest-moments');
-        // console.log(selectedFile)
-
+    
         try {
-            axios.post('https://api.cloudinary.com/v1_1/dyglppjr6/image/upload', formData)
-                .then((res) => {
-                    // console.log(res.data.secure_url)
-                    axios.post('https://63cbb242-3a7a-4763-8f17-fcbde3478ca4.eu-central-1.cloud.genez.io/api/moments', { imageUrl: res.data.secure_url })
-                })
-            setSelectedFile(null);
-            setPreviewUrl('');
-            setShowUploadModal(false);
-            fetchImages();
+            const uploadResponse = await axios.post(
+                'https://api.cloudinary.com/v1_1/dyglppjr6/image/upload', 
+                formData
+            );
+            
+            if (uploadResponse.status === 200) {
+                const imageUrl = uploadResponse.data.secure_url;
+                await axios.post(
+                    'https://63cbb242-3a7a-4763-8f17-fcbde3478ca4.eu-central-1.cloud.genez.io/api/moments', 
+                    { imageUrl }
+                );
+                
+                setSelectedFile(null);
+                setPreviewUrl('');
+                setShowUploadModal(false);
+                fetchImages();
+            } else {
+                console.error('Image upload failed:', uploadResponse.statusText);
+            }
         } catch (error) {
             console.error('Upload failed:', error);
         } finally {
             setIsUploading(false);
-            fetchImages();
         }
     };
 
