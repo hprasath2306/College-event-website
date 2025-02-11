@@ -18,7 +18,7 @@ const Header: React.FC = () => {
             className="text-2xl font-['Righteous'] text-white hover:text-[#FF3366] transition-colors"
             replace
           >
-            FEST 2025 🚀
+            CSEUTSAV'25 🚀
           </Link>
 
           <div className="flex gap-8 font-['Poppins']">
@@ -42,6 +42,13 @@ const Header: React.FC = () => {
               replace
             >
               Team
+            </Link>
+            <Link 
+              to="/moments" 
+              className={`${isActive('/moments')} transition-colors duration-300`}
+              replace
+            >
+              Moments
             </Link>
           </div>
         </div>

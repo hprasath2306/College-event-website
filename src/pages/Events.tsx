@@ -7,40 +7,183 @@ const Events = () => {
 
   const events = [
     {
-      id: 'hack-attack',
-      title: 'Hack Attack',
-      date: 'March 15',
-      description: '24-hour coding marathon. Build awesome!',
-      image: 'https://source.unsplash.com/1600x900/?coding',
-      duration: '24 Hours',
-      teamSize: 'Team of 4',
-      prize: '₹50,000',
-      category: 'technical'
+      "id": "oops-fix-it",
+      "title": "Oops! Fix It",
+      "description": "This coding competition challenges participants to identify and fix bugs in various programming tasks across multiple rounds. Teams will demonstrate their debugging skills and coding efficiency to become the Bug Busters Champion.",
+      "duration": "90 Minutes",
+      "teamSize": "1 to 2 members (individual participation allowed)",
+      "prize": "₹50,000",
+      "category": "technical",
+      "date": "2025-03-15",
+      "image": "https://example.com/images/oops-fix-it.jpg"
     },
     {
-      id: 'dance-mania',
-      title: 'Dance Mania',
-      date: 'March 18',
-      description: 'Show your moves in this epic dance battle!',
-      image: 'https://source.unsplash.com/1600x900/?dance',
-      duration: '2 Hours',
-      teamSize: 'Solo/Group',
-      prize: '₹30,000',
-      category: 'cultural'
+      "id": "code-confusion-cup",
+      "title": "The Code Confusion Cup",
+      "description": "This coding competition challenges participants to solve problems using unconventional methods, emphasizing creativity and efficiency. Teams will navigate through multiple rounds with unique constraints to become the champions.",
+      "duration": "90 Minutes",
+      "teamSize": "1 to 2 members (individual participation allowed)",
+      "prize": "₹50,000",
+      "category": "technical",
+      "date": "2025-03-16",
+      "image": "https://example.com/images/code-confusion-cup.jpg"
     },
     {
-      id: 'battle-of-bands',
-      title: 'Battle of Bands',
-      date: 'March 19',
-      description: 'Rock the stage with your band!',
-      image: 'https://source.unsplash.com/1600x900/?music-band',
-      duration: '3 Hours',
-      teamSize: 'Band',
-      prize: '₹45,000',
-      category: 'cultural'
+      "id": "code-free",
+      "title": "Code Free",
+      "description": "This unique competition challenges participants to solve problems without writing any code. Teams will explain their solutions using words, pseudocode, or diagrams, emphasizing clarity and creativity.",
+      "duration": "90 Minutes",
+      "teamSize": "1 to 2 members (individual participation allowed)",
+      "prize": "₹50,000",
+      "category": "technical",
+      "date": "2025-03-17",
+      "image": "https://example.com/images/code-free.jpg"
     },
-    // Add more events as needed
-  ];
+    {
+      "id": "logical-baton",
+      "title": "Logical Baton",
+      "description": "This collaborative coding competition requires teams to work sequentially on a program, with each member responsible for a specific part. Teams must ensure their final program compiles and runs correctly, emphasizing teamwork.",
+      "duration": "35 Minutes",
+      "teamSize": "Exactly 3 members (no substitutions allowed)",
+      "prize": "₹50,000",
+      "category": "technical",
+      "date": "2025-03-18",
+      "image": "https://example.com/images/logical-baton.jpg"
+    },
+    {
+      "id": "pitch-perfect",
+      "title": "Pitch Perfect",
+      "description": "This competition challenges teams to present innovative ideas and defend them in a Q&A session. Teams will showcase their creativity, feasibility, and impact through structured presentations and articulate responses to judges.",
+      "duration": "17 Minutes",
+      "teamSize": "1 to 3 members (individual participation allowed)",
+      "prize": "₹50,000",
+      "category": "technical",
+      "date": "2025-03-19",
+      "image": "https://example.com/images/pitch-perfect.jpg"
+    },
+    {
+      "id": "code-dejavu",
+      "title": "Code Dejavu",
+      "description": "This unique competition challenges participants to solve problems without writing any code. Teams will explain their solutions using words, pseudocode, or diagrams, emphasizing clarity and creativity.",
+      "duration": "90 Minutes",
+      "teamSize": "1 to 2 members (individual participation allowed)",
+      "prize": "₹50,000",
+      "category": "technical",
+      "date": "2025-03-20",
+      "image": "https://example.com/images/code-dejavu.jpg"
+    },
+    {
+      "id": "mock-job-interview",
+      "title": "Mock Job Interview",
+      "description": "This individual event simulates a real-world job interview, consisting of a Technical Round and an HR Round. Participants will demonstrate their technical knowledge, problem-solving abilities, and communication skills in front of a panel.",
+      "duration": "25 Minutes",
+      "teamSize": "Individual participation only",
+      "prize": "Feedback for improvement",
+      "category": "professional development",
+      "date": "2025-03-21",
+      "image": "https://example.com/images/mock-job-interview.jpg"
+    },
+    {
+      "id": "design-under-pressure",
+      "title": "Design Under Pressure – Figma/Adobe XD Challenge",
+      "description": "A design competition where teams of two work under time pressure to create a poster with an open theme. Every 20 minutes, a new hindrance or element will be added, testing creativity.",
+      "duration": "1 Hour",
+      "teamSize": "2 members per team",
+      "prize": "Recognition and feedback from judges",
+      "category": "design",
+      "date": "2025-03-22",
+      "image": "https://example.com/images/design-under-pressure.jpg"
+    },
+    {
+      "id": "bite-bidders",
+      "title": "Bite Bidders",
+      "description": "A competitive event where teams of two participate in a tech quiz and a coding bidding challenge. Teams will test their technical knowledge and coding skills to become the BITE BIDDERS CHAMPIONS!",
+      "duration": "40 Minutes",
+      "teamSize": "2 members per team",
+      "prize": "Recognition and prizes for the winning team",
+      "category": "technical",
+      "date": "2025-03-23",
+      "image": "https://example.com/images/bite-bidders.jpg"
+    },
+    {
+      "id": "code-with-comali",
+      "title": "Code with Comali",
+      "description": "A unique coding competition where teams of two work together, with one member guiding the other in solving coding problems and recreating designs. Effective communication and teamwork are essential for success.",
+      "duration": "35 Minutes",
+      "teamSize": "2 members per team",
+      "prize": "Recognition and prizes for the winning team",
+      "category": "technical",
+      "date": "2025-03-24",
+      "image": "https://example.com/images/code-with-comali.jpg"
+    },
+    {
+      "id": "mini-marvels",
+      "title": "MINI MARVELS",
+      "description": "This fireless cooking competition celebrates the artistic presentation of miniature dishes. Teams will transform raw, edible ingredients into visually stunning, bite-sized creations, showcasing their culinary artistry.",
+      "duration": "1 Hour",
+      "teamSize": "Teams of 4 (mix of any year)",
+      "prize": "₹50,000",
+      "category": "non-technical",
+      "date": "2025-03-25",
+      "image": "https://example.com/images/mini-marvels.jpg"
+    },
+    {
+      "id": "digital-dynamo",
+      "title": "DIGITAL DYNAMO",
+      "description": "A fun quiz competition focusing on general tech knowledge, computer science basics, famous personalities, trends, and innovations. Teams will compete in multiple rounds to showcase their knowledge and skills.",
+      "duration": "Variable (2 Rounds)",
+      "teamSize": "2 to 3 members per team",
+      "prize": "Recognition and prizes for the winning team",
+      "category": "non-technical",
+      "date": "2025-03-26",
+      "image": "https://example.com/images/digital-dynamo.jpg"
+    },
+    {
+      "id": "tech-pictionary",
+      "title": "TECH PICTIONARY",
+      "description": "A fun and interactive game where players draw technical terms while their team guesses the term within a time limit. Teams will showcase their creativity and knowledge of tech vocabulary and trends.",
+      "duration": "Variable (3 Rounds)",
+      "teamSize": "3 to 6 players per team",
+      "prize": "Recognition and prizes for the winning team",
+      "category": "non-technical",
+      "date": "2025-03-27",
+      "image": "https://example.com/images/tech-pictionary.jpg"
+    },
+    {
+      "id": "ipl-auction",
+      "title": "IPL Auction",
+      "description": "A competitive event where teams participate in an IPL trivia quiz followed by a player auction. Teams will build their rosters based on trivia performance and strategic bidding to create the strongest lineup.",
+      "duration": "Variable (2 Rounds)",
+      "teamSize": "3 players per team",
+      "prize": "Recognition and prizes for the winning team",
+      "category": "non-technical",
+      "date": "2025-03-28",
+      "image": "https://example.com/images/ipl-auction.jpg"
+    },
+    {
+      "id": "clipcraft",
+      "title": "CLIPCRAFT",
+      "description": "An exciting event where participants create short reel-like video clips (1-2 minutes) that convey interesting concepts related to technology, college life, or social themes. The best reel will be selected based on creativity, clarity, and audience.",
+      "duration": "1-2 Minutes",
+      "teamSize": "Individual participation 3 members",
+      "prize": "Recognition and prizes for the winning team",
+      "category": "non-technical",
+      "date": "2025-03-29",
+      "image": "https://example.com/images/clipcraft.jpg"
+    },
+    {
+      "id": "escape-room",
+      "title": "ESCAPE ROOM",
+      "description": "A mystery-based puzzle-solving game where teams solve a series of clues, riddles, and challenges to 'escape' from the room within a given time limit. Teams will participate in a tabletop escape challenge, solving puzzles.",
+      "duration": "TBD",
+      "teamSize": "2 members per team",
+      "prize": "Recognition and prizes for the winning team",
+      "category": "non-technical",
+      "date": "2025-03-30",
+      "image": "https://example.com/images/escape-room.jpg"
+    }
+  ]
+  
 
   const filteredEvents = activeCategory === 'all' 
     ? events 
@@ -55,7 +198,7 @@ const Events = () => {
         {/* Content */}
         <div className="relative z-10 text-center px-4 mt-30">
           <h1 className="text-6xl md:text-7xl font-['Righteous'] mb-4 animate-slideDown">
-            Our <span className="text-[#FF3366]">Events</span>
+            Our <span className="text-[#FFF]">Events</span>
           </h1>
           <p className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto animate-slideUp">
             Choose from our exciting range of technical and cultural events!
@@ -89,9 +232,9 @@ const Events = () => {
               Technical
             </button>
             <button
-              onClick={() => setActiveCategory('cultural')}
+              onClick={() => setActiveCategory('non-technical')}
               className={`px-6 py-2 rounded-full transition-all duration-300
-                        ${activeCategory === 'cultural'
+                        ${activeCategory === 'non-technical'
                           ? 'bg-[#FF3366] text-white'
                           : 'bg-[#1a1a1a] text-gray-400 hover:bg-[#FF3366]/10'
                         }`}
