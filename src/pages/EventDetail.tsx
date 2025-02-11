@@ -1,9 +1,8 @@
-// src/pages/EventDetail.tsx
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import RegisterModal from '../components/RegisterModal';
 
-// You can move this interface to a types file
+// Event interface (move to a types file if needed)
 interface Event {
   id: string;
   title: string;
@@ -16,8 +15,8 @@ interface Event {
   requirements: string[];
   prizes: {
     first: string;
-    second: string;
-    third: string;
+    second?: string;
+    third?: string;
   };
   coordinators: {
     name: string;
@@ -32,60 +31,43 @@ const EventDetail = () => {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-
   useEffect(() => {
-    // Simulating API call - replace with your actual data fetching
     const fetchEventDetails = () => {
-      // This is example data - replace with your actual data source
-      const eventsData = {
-        'hack-attack': {
-          id: 'hack-attack',
-          title: 'Hack Attack',
-          date: 'March 15, 2025',
-          time: '9:00 AM - 9:00 AM (24 Hours)',
-          venue: 'Main Auditorium',
-          image: 'https://source.unsplash.com/1600x900/?coding',
-          description: 'A 24-hour coding marathon where teams compete to build innovative solutions to real-world problems. Show off your coding skills, creativity, and problem-solving abilities in this exciting hackathon!',
+      const eventsData: Event[] = [
+        {
+          id: 'oops-fix-it',
+          title: 'Oops! Fix It',
+          date: '2025-03-15',
+          time: '90 Minutes',
+          venue: 'TBA',
+          image: 'https://example.com/images/oops-fix-it.jpg',
+          description: 'This coding competition challenges participants to identify and fix bugs...',
           rules: [
             'Teams must consist of exactly 4 members',
             'All code must be written during the hackathon',
             'Use of open-source libraries is allowed',
             'Projects must be original work',
-            'Final submission must include source code and documentation'
+            'Final submission must include source code and documentation',
           ],
-          requirements: [
-            'Laptop with required development tools',
-            'Valid college ID',
-            'Power adapters',
-            'Basic knowledge of programming'
-          ],
+          requirements: ['Laptop with required development tools', 'Valid college ID', 'Power adapters'],
           prizes: {
             first: '₹50,000',
             second: '₹30,000',
-            third: '₹20,000'
+            third: '₹20,000',
           },
           coordinators: [
-            {
-              name: 'John Doe',
-              role: 'Technical Head',
-              phone: '9876543210'
-            },
-            {
-              name: 'Jane Smith',
-              role: 'Event Coordinator',
-              phone: '9876543211'
-            }
-          ]
-        }
-        // Add more events as needed
-      };
+            { name: 'John Doe', role: 'Technical Head', phone: '9876543210' },
+            { name: 'Jane Smith', role: 'Event Coordinator', phone: '9876543211' },
+          ],
+        },
+      ];
 
       setLoading(true);
       setTimeout(() => {
-        const foundEvent = eventsData[eventId as keyof typeof eventsData];
+        const foundEvent = eventsData.find((event) => event.id === eventId);
         setEvent(foundEvent || null);
         setLoading(false);
-      }, 500); // Simulated loading delay
+      }, 500);
     };
 
     fetchEventDetails();
@@ -104,34 +86,33 @@ const EventDetail = () => {
       <div className="min-h-screen flex flex-col items-center justify-center p-4">
         <h1 className="text-3xl font-bold mb-4">Event Not Found</h1>
         <p className="text-gray-400 mb-8">The event you're looking for doesn't exist.</p>
-        <Link 
-          to="/events"
-          className="bg-[#FF3366] text-white px-6 py-2 rounded-full hover:bg-[#ff1f57] transition-colors"
-        >
+        <Link to="/events" className="bg-[#FF3366] text-white px-6 py-2 rounded-full hover:bg-[#ff1f57]">
           Back to Events
         </Link>
       </div>
     );
   }
 
+  const formattedDate = new Date(event.date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
   return (
     <div className="min-h-screen">
       {/* Hero Banner */}
       <div className="relative h-[60vh]">
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${event.image})` }}
-        >
+        <div className="absolute inset-0">
+          <img src={event.image} className="w-full h-full object-cover" alt={event.title} />
           <div className="absolute inset-0 bg-black bg-opacity-60"></div>
         </div>
         <div className="absolute inset-0 flex flex-col justify-end p-8 text-white">
           <div className="max-w-7xl mx-auto w-full">
-            <h1 className="text-4xl md:text-6xl font-['Righteous'] mb-4">
-              {event.title}
-            </h1>
+            <h1 className="text-4xl md:text-6xl font-['Righteous'] mb-4">{event.title}</h1>
             <div className="flex flex-wrap gap-6 text-lg">
               <span className="flex items-center gap-2">
-                <i className="fas fa-calendar"></i> {event.date}
+                <i className="fas fa-calendar"></i> {formattedDate}
               </span>
               <span className="flex items-center gap-2">
                 <i className="fas fa-clock"></i> {event.time}
@@ -147,97 +128,56 @@ const EventDetail = () => {
       {/* Content */}
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
             <section>
               <h2 className="text-2xl font-['Righteous'] mb-4">About the Event</h2>
               <p className="text-gray-300">{event.description}</p>
             </section>
 
-            <section>
-              <h2 className="text-2xl font-['Righteous'] mb-4">Rules</h2>
-              <ul className="list-disc list-inside space-y-2 text-gray-300">
-                {event.rules.map((rule, index) => (
-                  <li key={index}>{rule}</li>
-                ))}
-              </ul>
-            </section>
+            {event.rules.length > 0 && (
+              <section>
+                <h2 className="text-2xl font-['Righteous'] mb-4">Rules</h2>
+                <ul className="list-disc list-inside space-y-2 text-gray-300">
+                  {event.rules.map((rule, index) => <li key={index}>{rule}</li>)}
+                </ul>
+              </section>
+            )}
 
-            <section>
-              <h2 className="text-2xl font-['Righteous'] mb-4">Requirements</h2>
-              <ul className="list-disc list-inside space-y-2 text-gray-300">
-                {event.requirements.map((req, index) => (
-                  <li key={index}>{req}</li>
-                ))}
-              </ul>
-            </section>
+            {event.requirements.length > 0 && (
+              <section>
+                <h2 className="text-2xl font-['Righteous'] mb-4">Requirements</h2>
+                <ul className="list-disc list-inside space-y-2 text-gray-300">
+                  {event.requirements.map((req, index) => <li key={index}>{req}</li>)}
+                </ul>
+              </section>
+            )}
           </div>
 
           {/* Sidebar */}
           <div className="space-y-8">
-            {/* Prize Pool */}
             <div className="bg-[#1a1a1a] p-6 rounded-xl">
               <h3 className="text-xl font-['Righteous'] mb-4">Prize Pool</h3>
               <div className="space-y-4">
                 <div className="flex items-center gap-4">
                   <span className="text-2xl">🥇</span>
-                  <div>
-                    <div className="text-sm text-gray-400">First Prize</div>
-                    <div className="text-xl font-semibold">{event.prizes.first}</div>
-                  </div>
+                  <div className="text-xl font-semibold">{event.prizes.first}</div>
                 </div>
-                <div className="flex items-center gap-4">
-                  <span className="text-2xl">🥈</span>
-                  <div>
-                    <div className="text-sm text-gray-400">Second Prize</div>
+                {event.prizes.second && (
+                  <div className="flex items-center gap-4">
+                    <span className="text-2xl">🥈</span>
                     <div className="text-xl font-semibold">{event.prizes.second}</div>
                   </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className="text-2xl">🥉</span>
-                  <div>
-                    <div className="text-sm text-gray-400">Third Prize</div>
-                    <div className="text-xl font-semibold">{event.prizes.third}</div>
-                  </div>
-                </div>
+                )}
               </div>
             </div>
 
-            {/* Coordinators */}
-            <div className="bg-[#1a1a1a] p-6 rounded-xl">
-              <h3 className="text-xl font-['Righteous'] mb-4">Event Coordinators</h3>
-              <div className="space-y-4">
-                {event.coordinators.map((coordinator, index) => (
-                  <div key={index} className="flex flex-col gap-1">
-                    <div className="font-semibold">{coordinator.name}</div>
-                    <div className="text-sm text-gray-400">{coordinator.role}</div>
-                    <a 
-                      href={`tel:${coordinator.phone}`}
-                      className="text-[#FF3366] hover:text-[#ff1f57] transition-colors"
-                    >
-                      {coordinator.phone}
-                    </a>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Register Button */}
-            <button 
-              onClick={() => setIsModalOpen(true)}
-              className="w-full bg-[#FF3366] text-white py-3 rounded-xl
-                         hover:bg-[#ff1f57] transition-colors font-semibold"
-            >
+            <button onClick={() => setIsModalOpen(true)} className="w-full bg-[#FF3366] text-white py-3 rounded-xl hover:bg-[#ff1f57]">
               Register Now
             </button>
           </div>
         </div>
       </div>
-      <RegisterModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        eventTitle={event.title}
-      />
+      <RegisterModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} eventTitle={event.title} />
     </div>
   );
 };

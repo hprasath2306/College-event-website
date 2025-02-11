@@ -18,8 +18,30 @@ export default function Admin() {
     const [error, setError] = useState<string | null>(null);
     const [searched, setSearched] = useState(false);
 
+    // List of events
+    const events = [
+        "Oops! Fix It",
+        "The Code Confusion Cup",
+        "Code Free",
+        "Logical Baton",
+        "Pitch Perfect",
+        "Code Dejavu",
+        "Mock Job Interview",
+        "Design Under Pressure – Figma/Adobe XD Challenge",
+        "Bite Bidders",
+        "Code with Comali",
+        "MINI MARVELS: THE ART YOU CAN EAT",
+        "DIGITAL DYNAMO",
+        "TECH PICTIONARY",
+        "IPL Auction",
+        "CLIPCRAFT",
+        "ESCAPE ROOM"
+      ]
+
     const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (!eventName) return;
+        
         setLoading(true);
         setError(null);
         try {
@@ -39,39 +61,58 @@ export default function Admin() {
             {/* Header */}
             <div className="max-w-7xl mx-auto">
                 <h1 className="text-4xl md:text-5xl font-['Righteous'] mb-8">
-                    Export
+                    Export Registrations
                 </h1>
 
                 {/* Search Form */}
                 <div className="bg-[#1a1a1a] rounded-xl p-6 mb-8">
                     <form onSubmit={handleSearch} className="flex flex-col md:flex-row gap-4">
                         <div className="flex-1">
-                            <input
-                                type="text"
+                            <select
                                 value={eventName}
                                 onChange={(e) => setEventName(e.target.value)}
-                                placeholder="Enter event name (e.g., Hack Attack)"
                                 className="w-full px-4 py-3 bg-[#252525] border border-gray-700 rounded-lg
-                         focus:outline-none focus:border-[#FF3366] transition-colors
-                         text-white placeholder-gray-500"
+                                         focus:outline-none focus:border-[#FF3366] transition-colors
+                                         text-white appearance-none cursor-pointer"
                                 required
-                            />
+                                style={{
+                                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                                    backgroundRepeat: 'no-repeat',
+                                    backgroundPosition: 'right 1rem center',
+                                    backgroundSize: '1.5em 1.5em'
+                                }}
+                            >
+                                <option value="" disabled>Select an event</option>
+                                {events.map((event) => (
+                                    <option 
+                                        key={event} 
+                                        value={event}
+                                        className="bg-[#252525] text-white"
+                                    >
+                                        {event}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
                         <button
                             type="submit"
                             className="px-8 py-3 bg-[#FF3366] text-white rounded-lg
-                       hover:bg-[#ff1f57] transition-colors font-semibold
-                       transform hover:scale-[1.02] active:scale-[0.98] transition-transform
-                       disabled:opacity-50 disabled:cursor-not-allowed"
-                            disabled={loading}
+                                   hover:bg-[#ff1f57] transition-colors font-semibold
+                                   transform hover:scale-[1.02] active:scale-[0.98] transition-transform
+                                   disabled:opacity-50 disabled:cursor-not-allowed
+                                   flex items-center justify-center gap-2"
+                            disabled={loading || !eventName}
                         >
                             {loading ? (
-                                <div className="flex items-center gap-2">
+                                <>
                                     <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div>
-                                    <span>Searching...</span>
-                                </div>
+                                    <span>Fetching...</span>
+                                </>
                             ) : (
-                                'Search'
+                                <>
+                                    <i className="fas fa-search"></i>
+                                    <span>View Registrations</span>
+                                </>
                             )}
                         </button>
                     </form>
@@ -146,7 +187,7 @@ export default function Admin() {
                                         a.click();
                                     }}
                                     className="flex items-center gap-2 px-6 py-3 bg-[#252525] text-white rounded-lg
-                           hover:bg-[#303030] transition-colors font-semibold"
+                                           hover:bg-[#303030] transition-colors font-semibold"
                                 >
                                     <i className="fas fa-download"></i>
                                     Export to CSV
