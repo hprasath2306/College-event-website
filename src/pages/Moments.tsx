@@ -23,7 +23,7 @@ const Moments = () => {
     const fetchImages = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('https://63cbb242-3a7a-4763-8f17-fcbde3478ca4.eu-central-1.cloud.genez.io/api/moments');
+            const response = await axios.get('https://symposium-api-production.up.railway.app/api/moments');
             setMoments(response.data);
         } catch (error) {
             console.error('Failed to fetch images:', error);
@@ -59,7 +59,7 @@ const Moments = () => {
             if (uploadResponse.status === 200) {
                 const imageUrl = uploadResponse.data.secure_url;
                 await axios.post(
-                    'https://63cbb242-3a7a-4763-8f17-fcbde3478ca4.eu-central-1.cloud.genez.io/api/moments', 
+                    'https://symposium-api-production.up.railway.app/api/moments', 
                     { imageUrl }
                 );
                 

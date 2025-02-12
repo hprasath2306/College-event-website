@@ -45,7 +45,7 @@ export default function Admin() {
         setLoading(true);
         setError(null);
         try {
-            const response = await axios.get(`https://63cbb242-3a7a-4763-8f17-fcbde3478ca4.eu-central-1.cloud.genez.io/api/users/${eventName}`);
+            const response = await axios.get(`https://symposium-api-production.up.railway.app/api/users/${eventName}`);
             setUsers(response.data);
             setSearched(true);
         } catch (error: any) {

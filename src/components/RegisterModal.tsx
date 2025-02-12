@@ -20,7 +20,7 @@ const RegisterModal = ({ isOpen, onClose, eventTitle }: RegisterModalProps) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post('https://63cbb242-3a7a-4763-8f17-fcbde3478ca4.eu-central-1.cloud.genez.io/api/users', {
+      const response = await axios.post('https://symposium-api-production.up.railway.app/api/users', {
         name,
         year: parseInt(year),
         section: classSection,
