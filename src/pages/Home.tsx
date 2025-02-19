@@ -22,8 +22,8 @@ const Home = () => {
     <div className="relative">
       <section className="hero">
         <div className="hero-content">
-          <h1>College Events <span className="highlight">Fiesta!</span></h1>
-          <p className="tagline">Where Fun Meets Future! 🎮 🎨 🎭 🎪</p>
+          <h1>CSEUTSAV' <span className="highlight">25!</span></h1>
+          <p className="tagline">Where Fun Meets Future! 🎮 🎨  🎪</p>
           <Link
             to="/events"
             className="cta-button"
