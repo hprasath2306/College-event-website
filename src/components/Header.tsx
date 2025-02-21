@@ -90,6 +90,13 @@ const Header: React.FC = () => {
               Team
             </Link>
             <Link 
+              to="/schedule" 
+              className={`${isActive('/schedule')} transition-colors duration-300`}
+              replace
+            >
+              Schedule
+            </Link>
+            <Link 
               to="/moments" 
               className={`${isActive('/moments')} transition-colors duration-300`}
               replace
@@ -133,6 +140,13 @@ const Header: React.FC = () => {
               replace
             >
               Team
+            </Link>
+            <Link 
+              to="/schedule" 
+              className={`${isActive('/schedule')} transition-colors duration-300 w-full text-center py-2`}
+              replace
+            >
+              Schedule
             </Link>
             <Link 
               to="/moments" 

@@ -6,7 +6,6 @@ export interface Event {
     image: string;
     duration: string;
     teamSize: string;
-    prize: string;
     category?: string | undefined;
   }
 

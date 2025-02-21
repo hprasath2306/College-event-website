@@ -8,6 +8,7 @@ import CustomCursor from "./components/CustomCursor";
 import EventDetail from "./pages/EventDetail";
 import Admin from "./pages/Admin";
 import Moments from "./pages/Moments";
+import Schedule from "./pages/Schedule";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/moments" element={<Moments />} />
           <Route path="/events/:eventId" element={<EventDetail />} />
           <Route path="/psnaAdmin" element={<Admin />} />
+          <Route path="/schedule" element={<Schedule />} />
         </Routes>
         <Footer />
       </Router>

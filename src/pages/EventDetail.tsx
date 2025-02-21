@@ -1,20 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import RegisterModal from '../components/RegisterModal';
-import OopsBanner from '../assets/oops-banner.svg'
-import DejavuBanner from '../assets/dejavu-banner.svg'
-import CodeFreeBanner from '../assets/code-free-banner.svg'
-import LogicalBatonBanner from '../assets/logical-baton-banner.svg'
-import PitchPerfectBanner from '../assets/pitch-perfect-banner.svg'
-import DesignUnderPressureBanner from '../assets/design-pressure-banner.svg'
-import BiteBiddersBanner from '../assets/bite-bidders-banner.svg' 
-import CodeWithComaliBanner from '../assets/code-comali-banner.svg'
-import FlameLessBanner from '../assets/flameless-feast-banner.svg'
-import DigitalDynamoBanner from '../assets/digital-dynamo-banner.svg'
-import EscapeRoomBanner from '../assets/escape-room-banner.svg'
-import TechPictionaryBanner from '../assets/tech-pictionary-banner.svg'
-import IplAuctionBanner from '../assets/ipl-auction-banner.svg'
-import ClipcraftBanner from '../assets/clip-craft-banner.svg'
 import { eventsData } from '../utils/events';
 import { EventDetailsType } from '../types/event';
 
@@ -58,11 +44,11 @@ const EventDetail = () => {
     );
   }
 
-  const formattedDate = new Date(event.date).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
+  // const formattedDate = new Date(event.date).toLocaleDateString('en-US', {
+  //   year: 'numeric',
+  //   month: 'long',
+  //   day: 'numeric',
+  // });
 
   return (
     <div className="min-h-screen">

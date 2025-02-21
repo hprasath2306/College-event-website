@@ -1,42 +1,44 @@
 import { Link } from "react-router-dom";
 import EventCard from "./EventCard";
 import { Event } from "../types/event";
-
+import BiteBiddersBanner from '../assets/bite-bidders-banner.svg'
+import DesignUnderPressureBanner from '../assets/design-pressure-banner.svg'
+import OopsBanner from '../assets/oops-banner.svg'
 interface AwesomeEventsProps {
   isVisible: boolean;
 }
 
 const featuredEvents: Event[] = [
   {
-    id: 'hack-attack',
-    title: 'Hack Attack',
-    date: 'March 15',
-    description: '24-hour coding marathon. Build something!',
-    image: 'https://source.unsplash.com/400x300/?coding',
-    duration: '24 Hours',
-    teamSize: 'Team of 4',
-    prize: '₹50,000 Prize'
+    "id": "bite-bidders",
+    "title": "Bite Bidders",
+    "description": "A team-based competition where participants take a tech quiz and bid on coding challenges, with the highest-scoring team winning. The event is open to all students of CSE branch.",
+    "duration": "40 Minutes",
+    "teamSize": "2 members",
+    "category": "technical",
+    "date": "2025-03-23",
+    "image": BiteBiddersBanner
   },
   {
-    id: 'dance-mania',
-    title: 'Dance Mania',
-    date: 'March 18',
-    description: 'Show your moves in this epic dance battle!',
-    image: 'https://source.unsplash.com/400x300/?dance',
-    duration: '2 Hours',
-    teamSize: 'Solo/Group',
-    prize: '₹30,000 Prize'
+    "id": "design-under-pressure",
+    "title": "Design Under Pressure",
+    "description": "A solo design challenge where participants create a poster using Figma or Adobe XD, adapting to unexpected design constraints every 20 minutes focusing on creativity and time management.",
+    "duration": "60 Minutes",
+    "teamSize": "1 member",
+    "category": "technical",
+    "date": "2025-03-22",
+    "image": DesignUnderPressureBanner
   },
   {
-    id: 'battle-of-bands',
-    title: 'Battle of Bands',
-    date: 'March 19',
-    description: 'Rock the stage with your band!',
-    image: 'https://source.unsplash.com/400x300/?music-band',
-    duration: '3 Hours',
-    teamSize: 'Band',
-    prize: '₹45,000 Prize'
-  }
+    "id": "oops-fix-it",
+    "title": "Oops! Fix It",
+    "description": "A solo debugging competition where participants identify, fix, and optimize buggy code under time constraints across three rounds. The event is open to all students of any branch and year.",
+    "duration": "90 Minutes",
+    "teamSize": "1 member",
+    "category": "technical",
+    "date": "2025-03-15",
+    "image": OopsBanner
+  },
 ];
 
 const AwesomeEvents = ({ isVisible }: AwesomeEventsProps) => {
