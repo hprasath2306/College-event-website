@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <!-- Background -->
+  <rect width="1600" height="900" fill="#1B1E23"/>
+  
+  <!-- Dynamic background pattern - moved down -->
+  <g opacity="0.1">
+    <path d="M0 550 Q 800 350, 1600 550" stroke="#4FC3F7" fill="none" stroke-width="2"/>
+    <path d="M0 560 Q 800 760, 1600 560" stroke="#4FC3F7" fill="none" stroke-width="2"/>
+  </g>
+
+  <!-- Central connecting circle - moved down -->
+  <circle cx="800" cy="550" r="200" fill="#1B1E23" stroke="#4FC3F7" stroke-width="2" opacity="0.1"/>
+  
+  <!-- Stage visualization - moved down -->
+  <g>
+    <!-- Stage connection lines -->
+    <path d="M500 550 L700 550" stroke="#FFA726" stroke-width="3" stroke-dasharray="8,8"/>
+    <path d="M900 550 L1100 550" stroke="#FFA726" stroke-width="3" stroke-dasharray="8,8"/>
+    
+    <!-- Stage circles -->
+    <g>
+      <!-- Variables Stage -->
+      <circle cx="500" cy="550" r="40" fill="#2196F3"/>
+      <text x="500" y="540" fill="white" font-family="Arial" font-size="14" text-anchor="middle">Variables</text>
+      <text x="500" y="560" fill="white" font-family="Arial" font-size="14" text-anchor="middle">Stage 1</text>
+      
+      <!-- Logic Stage -->
+      <circle cx="800" cy="550" r="40" fill="#FFA726"/>
+      <text x="800" y="540" fill="white" font-family="Arial" font-size="14" text-anchor="middle">Logic</text>
+      <text x="800" y="560" fill="white" font-family="Arial" font-size="14" text-anchor="middle">Stage 2</text>
+      
+      <!-- Execute Stage -->
+      <circle cx="1100" cy="550" r="40" fill="#66BB6A"/>
+      <text x="1100" y="540" fill="white" font-family="Arial" font-size="14" text-anchor="middle">Execute</text>
+      <text x="1100" y="560" fill="white" font-family="Arial" font-size="14" text-anchor="middle">Stage 3</text>
+    </g>
+  </g>
+
+  <!-- Code snippets in background - adjusted positions -->
+  <g opacity="0.1" font-family="monospace" fill="#FFA726">
+    <text x="400" y="400" font-size="16">int count;</text>
+    <text x="900" y="700" font-size="16">return result;</text>
+    <text x="700" y="300" font-size="16">while(true) {</text>
+  </g>
+
+  <!-- Main Title - moved down -->
+  <g>
+    <text x="800" y="460" fill="#FFFFFF" font-family="Arial Black, sans-serif" font-size="90" text-anchor="middle" font-weight="bold">Logical Baton</text>
+    <text x="800" y="520" fill="#4FC3F7" font-family="Arial, sans-serif" font-size="32" text-anchor="middle">Code Relay Challenge</text>
+  </g>
+
+  <!-- Decorative elements - adjusted positions -->
+  <g stroke="#4FC3F7" stroke-width="1" fill="none" opacity="0.3">
+    <rect x="300" y="300" width="100" height="60" rx="5"/>
+    <rect x="1200" y="700" width="100" height="60" rx="5"/>
+  </g>
+
+  <!-- Flow arrows - moved down -->
+  <g fill="#FFA726" opacity="0.6">
+    <path d="M600 550 L620 540 L620 560 Z"/>
+    <path d="M1000 550 L1020 540 L1020 560 Z"/>
+  </g>
+</svg>

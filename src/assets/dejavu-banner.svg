@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <!-- Background -->
+  <rect width="1600" height="900" fill="#1E1E2E"/>
+  
+  <!-- Mirror/reflection effect -->
+  <g opacity="0.1" fill="none" stroke="#8A2BE2" stroke-width="1.5">
+    <path d="M0 450 L1600 450" />
+    <!-- Reflected grid lines -->
+    <path d="M200 0 L200 450 L300 900" />
+    <path d="M400 0 L400 450 L500 900" />
+    <path d="M600 0 L600 450 L700 900" />
+    <path d="M800 0 L800 450 L900 900" />
+    <path d="M1000 0 L1000 450 L1100 900" />
+    <path d="M1200 0 L1200 450 L1300 900" />
+    <path d="M1400 0 L1400 450 L1500 900" />
+  </g>
+
+  <!-- Binary streams -->
+  <g fill="#8A2BE2" opacity="0.2" font-family="monospace">
+    <text x="100" y="200" font-size="20">10110</text>
+    <text x="1400" y="300" font-size="20">01001</text>
+    <text x="300" y="600" font-size="20">11100</text>
+    <text x="1200" y="700" font-size="20">00111</text>
+  </g>
+
+  <!-- Main Title -->
+  <text x="800" y="420" fill="#ffffff" font-family="Arial Black, sans-serif" font-size="120" text-anchor="middle" font-weight="bold">Code Dejavu</text>
+
+  <!-- Mirror reflection of title (slightly distorted) -->
+  <text x="800" y="560" fill="#ffffff" font-family="Arial Black, sans-serif" font-size="120" text-anchor="middle" font-weight="bold" opacity="0.1" transform="scale(1, -0.3)">Code Dejavu</text>
+
+  <!-- Subtitle -->
+  <text x="800" y="500" fill="#8A2BE2" font-family="Arial, sans-serif" font-size="40" text-anchor="middle">Reverse Coding Challenge</text>
+
+  <!-- Decorative arrows suggesting reverse/reflection -->
+  <g fill="none" stroke="#8A2BE2" stroke-width="4">
+    <path d="M500 450 L450 450 L475 425" />
+    <path d="M1100 450 L1150 450 L1125 475" />
+  </g>
+
+  <!-- Circular symbols suggesting rewind/reverse -->
+  <g fill="none" stroke="#8A2BE2" stroke-width="3">
+    <path d="M300 300 A 20 20 0 1 1 340 300" />
+    <path d="M1300 300 A 20 20 0 1 1 1340 300" />
+  </g>
+</svg>

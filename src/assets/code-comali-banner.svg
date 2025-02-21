@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <!-- Dark background -->
+  <rect width="1600" height="900" fill="#1a1a1a"/>
+  
+  <!-- Animated code pattern background -->
+  <pattern id="codePattern" width="200" height="200" patternUnits="userSpaceOnUse">
+    <text x="10" y="20" font-family="Courier New" font-size="14" fill="#00FF00" opacity="0.2">{code}</text>
+    <text x="50" y="40" font-family="Courier New" font-size="14" fill="#00FF00" opacity="0.2">while(true)</text>
+    <text x="30" y="60" font-family="Courier New" font-size="14" fill="#00FF00" opacity="0.2">print("fun")</text>
+    <text x="70" y="80" font-family="Courier New" font-size="14" fill="#00FF00" opacity="0.2">def comedy()</text>
+  </pattern>
+  <rect width="1600" height="900" fill="url(#codePattern)"/>
+  
+  <!-- Speech bubble with code -->
+  <path d="M1200 300 Q1300 300 1300 400 Q1300 500 1200 500 L1000 500 Q900 500 900 400 Q900 300 1000 300 Z" 
+        fill="none" stroke="#FF69B4" stroke-width="3"/>
+  <path d="M900 450 L850 500 L900 470" fill="#FF69B4" stroke="#FF69B4" stroke-width="2"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="200" cy="450" r="100" fill="none" stroke="#FFD700" stroke-width="3" stroke-dasharray="10,5"/>
+  <path d="M150 400 L250 500" stroke="#FFD700" stroke-width="3"/>
+  <path d="M150 500 L250 400" stroke="#FFD700" stroke-width="3"/>
+  
+  <!-- Main title -->
+  <text x="800" y="380" font-family="Arial Black, sans-serif" font-size="72" fill="white" text-anchor="middle">CODE</text>
+  <text x="800" y="460" font-family="Arial Black, sans-serif" font-size="72" fill="white" text-anchor="middle">WITH</text>
+  <text x="800" y="540" font-family="Arial Black, sans-serif" font-size="72" fill="#FF69B4" text-anchor="middle">COMALI</text>
+  
+  <!-- Fun glitch effect -->
+  <text x="803" y="380" font-family="Arial Black, sans-serif" font-size="72" fill="#00FF00" text-anchor="middle" opacity="0.3">CODE</text>
+  
+  <!-- Subtitle -->
+  <text x="800" y="620" font-family="Arial, sans-serif" font-size="28" fill="#888888" text-anchor="middle">Where Comedy Meets Coding</text>
+  
+  <!-- Emoji-style elements -->
+  <text x="300" y="200" font-family="Arial" font-size="40" fill="#FFD700">😄</text>
+  <text x="1300" y="700" font-family="Arial" font-size="40" fill="#FFD700">🎭</text>
+  
+  <!-- Curved line suggesting entertainment -->
+  <path d="M400 800 Q 800 700 1200 800" fill="none" stroke="#FF69B4" stroke-width="2" opacity="0.5"/>
+</svg>

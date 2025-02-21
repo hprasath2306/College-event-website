@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Aevents as events } from '../utils/events';
 
 interface User {
     id: number;
@@ -17,26 +18,6 @@ export default function Admin() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [searched, setSearched] = useState(false);
-
-    // List of events
-    const events = [
-        "Oops! Fix It",
-        "The Code Confusion Cup",
-        "Code Free",
-        "Logical Baton",
-        "Pitch Perfect",
-        "Code Dejavu",
-        "Mock Job Interview",
-        "Design Under Pressure – Figma/Adobe XD Challenge",
-        "Bite Bidders",
-        "Code with Comali",
-        "MINI MARVELS: THE ART YOU CAN EAT",
-        "DIGITAL DYNAMO",
-        "TECH PICTIONARY",
-        "IPL Auction",
-        "CLIPCRAFT",
-        "ESCAPE ROOM"
-      ]
 
     const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

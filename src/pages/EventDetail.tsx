@@ -1,67 +1,32 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import RegisterModal from '../components/RegisterModal';
+import OopsBanner from '../assets/oops-banner.svg'
+import DejavuBanner from '../assets/dejavu-banner.svg'
+import CodeFreeBanner from '../assets/code-free-banner.svg'
+import LogicalBatonBanner from '../assets/logical-baton-banner.svg'
+import PitchPerfectBanner from '../assets/pitch-perfect-banner.svg'
+import DesignUnderPressureBanner from '../assets/design-pressure-banner.svg'
+import BiteBiddersBanner from '../assets/bite-bidders-banner.svg' 
+import CodeWithComaliBanner from '../assets/code-comali-banner.svg'
+import FlameLessBanner from '../assets/flameless-feast-banner.svg'
+import DigitalDynamoBanner from '../assets/digital-dynamo-banner.svg'
+import EscapeRoomBanner from '../assets/escape-room-banner.svg'
+import TechPictionaryBanner from '../assets/tech-pictionary-banner.svg'
+import IplAuctionBanner from '../assets/ipl-auction-banner.svg'
+import ClipcraftBanner from '../assets/clip-craft-banner.svg'
+import { eventsData } from '../utils/events';
+import { EventDetailsType } from '../types/event';
 
-// Event interface (move to a types file if needed)
-interface Event {
-  id: string;
-  title: string;
-  date: string;
-  time: string;
-  venue: string;
-  description: string;
-  image: string;
-  rules: string[];
-  requirements: string[];
-  prizes: {
-    first: string;
-    second?: string;
-    third?: string;
-  };
-  coordinators: {
-    name: string;
-    role: string;
-    phone: string;
-  }[];
-}
 
 const EventDetail = () => {
   const { eventId } = useParams();
-  const [event, setEvent] = useState<Event | null>(null);
+  const [event, setEvent] = useState<EventDetailsType | null>(null);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchEventDetails = () => {
-      const eventsData: Event[] = [
-        {
-          id: 'oops-fix-it',
-          title: 'Oops! Fix It',
-          date: '2025-03-15',
-          time: '90 Minutes',
-          venue: 'TBA',
-          image: 'https://example.com/images/oops-fix-it.jpg',
-          description: 'This coding competition challenges participants to identify and fix bugs...',
-          rules: [
-            'Teams must consist of exactly 4 members',
-            'All code must be written during the hackathon',
-            'Use of open-source libraries is allowed',
-            'Projects must be original work',
-            'Final submission must include source code and documentation',
-          ],
-          requirements: ['Laptop with required development tools', 'Valid college ID', 'Power adapters'],
-          prizes: {
-            first: '₹50,000',
-            second: '₹30,000',
-            third: '₹20,000',
-          },
-          coordinators: [
-            { name: 'John Doe', role: 'Technical Head', phone: '9876543210' },
-            { name: 'Jane Smith', role: 'Event Coordinator', phone: '9876543211' },
-          ],
-        },
-      ];
-
       setLoading(true);
       setTimeout(() => {
         const foundEvent = eventsData.find((event) => event.id === eventId);
@@ -105,9 +70,9 @@ const EventDetail = () => {
       <div className="relative h-[60vh]">
         <div className="absolute inset-0">
           <img src={event.image} className="w-full h-full object-cover" alt={event.title} />
-          <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+          {/* <div className="absolute inset-0 bg-black bg-opacity-60"></div> */}
         </div>
-        <div className="absolute inset-0 flex flex-col justify-end p-8 text-white">
+        {/* <div className="absolute inset-0 flex flex-col justify-end p-8 text-white">
           <div className="max-w-7xl mx-auto w-full">
             <h1 className="text-4xl md:text-6xl font-['Righteous'] mb-4">{event.title}</h1>
             <div className="flex flex-wrap gap-6 text-lg">
@@ -122,7 +87,7 @@ const EventDetail = () => {
               </span>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Content */}
@@ -159,16 +124,46 @@ const EventDetail = () => {
               <h3 className="text-xl font-['Righteous'] mb-4">Prize Pool</h3>
               <div className="space-y-4">
                 <div className="flex items-center gap-4">
-                  <span className="text-2xl">🥇</span>
-                  <div className="text-xl font-semibold">{event.prizes.first}</div>
+                  <span className="text-2xl">🥇</span><span className="text-2xl">🥈</span><span className="text-2xl">🥉</span>
                 </div>
-                {event.prizes.second && (
-                  <div className="flex items-center gap-4">
-                    <span className="text-2xl">🥈</span>
-                    <div className="text-xl font-semibold">{event.prizes.second}</div>
-                  </div>
-                )}
               </div>
+            </div>
+
+            <div className="bg-[#1a1a1a] p-6 rounded-xl">
+              <h3 className="text-xl font-['Righteous'] mb-4">Event Coordinators</h3>
+              <div className="space-y-4">
+                {event.coordinators.map((coordinator, index) => (
+                  <div key={index} className="flex items-center gap-4">
+                    <span className="text-2xl">👤</span>
+                    <div>
+                      <p>{coordinator.name}</p>
+                      <p>{coordinator.role}</p>
+                      <a 
+                        href={`https://wa.me/${coordinator.phone}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#FF3366] hover:text-[#ff1f57] cursor-pointer flex items-center gap-1"
+                      >
+                        <i className="fab fa-whatsapp"></i>
+                        {coordinator.phone}
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-[#1a1a1a] p-6 rounded-xl">
+              <h3 className="text-xl font-['Righteous'] mb-4">Join Event Group</h3>
+              <a 
+                href="https://chat.whatsapp.com/your-group-invite-link"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full bg-[#25D366] text-white py-3 rounded-xl hover:bg-[#128C7E] flex items-center justify-center gap-2 transition-colors"
+              >
+                <i className="fab fa-whatsapp text-xl"></i>
+                Join WhatsApp Group
+              </a>
             </div>
 
             <button onClick={() => setIsModalOpen(true)} className="w-full bg-[#FF3366] text-white py-3 rounded-xl hover:bg-[#ff1f57]">

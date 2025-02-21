@@ -8,7 +8,6 @@ interface EventCardProps {
   image: string;
   duration: string;
   teamSize: string;
-  prize: string;
 }
 
 const EventCard = ({
@@ -19,7 +18,6 @@ const EventCard = ({
   image,
   duration,
   teamSize,
-  prize,
 }: EventCardProps) => {
   return (
     <div className="bg-[#1a1a1a] rounded-xl overflow-hidden shadow-lg 
@@ -47,9 +45,6 @@ const EventCard = ({
             </li>
             <li className="flex items-center gap-2">
               <i className="fas fa-users"></i> {teamSize}
-            </li>
-            <li className="flex items-center gap-2">
-              <i className="fas fa-trophy"></i> {prize}
             </li>
           </ul>
         </div>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <!-- Background -->
+  <rect width="1600" height="900" fill="#1a1a1a"/>
+  
+  <!-- Abstract code pattern background -->
+  <g opacity="0.1" fill="none" stroke="#00ff00" stroke-width="2">
+    <path d="M0 100 L1600 100" />
+    <path d="M0 300 L1600 300" />
+    <path d="M0 500 L1600 500" />
+    <path d="M0 700 L1600 700" />
+    <!-- Vertical lines -->
+    <path d="M200 0 L200 900" />
+    <path d="M400 0 L400 900" />
+    <path d="M600 0 L600 900" />
+    <path d="M800 0 L800 900" />
+    <path d="M1000 0 L1000 900" />
+    <path d="M1200 0 L1200 900" />
+    <path d="M1400 0 L1400 900" />
+  </g>
+
+  <!-- Error symbols -->
+  <g fill="#ff4444">
+    <path d="M200 400 L230 370 L260 400 L230 430 Z"/>
+    <path d="M1300 500 L1330 470 L1360 500 L1330 530 Z"/>
+  </g>
+
+  <!-- Main Title -->
+  <text x="800" y="400" fill="#ffffff" font-family="Arial Black, sans-serif" font-size="120" text-anchor="middle" font-weight="bold">OOPs Fix It</text>
+
+  <!-- Decorative bracket symbols -->
+  <text x="600" y="400" fill="#00ff00" font-family="monospace" font-size="150" text-anchor="middle">{</text>
+  <text x="1000" y="400" fill="#00ff00" font-family="monospace" font-size="150" text-anchor="middle">}</text>
+
+  <!-- Subtitle -->
+  <text x="800" y="500" fill="#888888" font-family="Arial, sans-serif" font-size="40" text-anchor="middle">Debugging Challenge</text>
+
+  <!-- Bug icons -->
+  <g fill="#ff6b6b">
+    <circle cx="400" cy="600" r="15"/>
+    <circle cx="1200" cy="300" r="15"/>
+  </g>
+</svg>

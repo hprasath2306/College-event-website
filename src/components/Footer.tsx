@@ -14,7 +14,7 @@ export default function Footer() {
             </a>
           </div>
           <p className="text-gray-400">
-            © 2025 Department of CSE. Made with 💖 by Students
+            © 2025 PSNA - Department of CSE. Made with 💖 by Students
           </p>
         </div>
       </footer>

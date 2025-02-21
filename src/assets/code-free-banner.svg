@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <!-- Background -->
+  <rect width="1600" height="900" fill="#2D0054"/>
+  
+  <!-- Funky background patterns -->
+  <g opacity="0.2">
+    <circle cx="200" cy="200" r="100" fill="#FF61D8"/>
+    <circle cx="1400" cy="700" r="120" fill="#4DC9FF"/>
+    <rect x="1200" y="100" width="150" height="150" fill="#FFD93D" transform="rotate(30 1275 175)"/>
+    <rect x="300" y="600" width="120" height="120" fill="#6BFF61" transform="rotate(-15 360 660)"/>
+  </g>
+
+  <!-- Flowchart-style elements -->
+  <g fill="none" stroke="#FFD93D" stroke-width="3">
+    <!-- Diamond -->
+    <path d="M150 450 L200 400 L250 450 L200 500 Z"/>
+    <!-- Rectangle -->
+    <rect x="1300" y="400" width="100" height="60" rx="10"/>
+    <!-- Arrows -->
+    <path d="M250 450 L300 450 L290 440 M300 450 L290 460"/>
+    <path d="M1250 430 L1300 430 L1290 420 M1300 430 L1290 440"/>
+  </g>
+
+  <!-- Pseudo-code elements -->
+  <g fill="#4DC9FF" font-family="monospace" opacity="0.2">
+    <text x="400" y="200" font-size="24">IF condition THEN</text>
+    <text x="1100" y="600" font-size="24">BEGIN LOOP</text>
+    <text x="500" y="700" font-size="24">PRINT output</text>
+  </g>
+
+  <!-- Main Title with funky gradient -->
+  <defs>
+    <linearGradient id="titleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FF61D8"/>
+      <stop offset="50%" style="stop-color:#4DC9FF"/>
+      <stop offset="100%" style="stop-color:#FFD93D"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Title -->
+  <text x="800" y="420" fill="url(#titleGradient)" font-family="Arial Black, sans-serif" font-size="130" text-anchor="middle" font-weight="bold">Code Free</text>
+
+  <!-- Subtitle with multiple colors -->
+  <g text-anchor="middle" font-family="Arial, sans-serif" font-size="35">
+    <text x="800" y="500" fill="#FF61D8">Flowcharts</text>
+    <text x="650" y="500" fill="#4DC9FF">Pseudo-code</text>
+    <text x="950" y="500" fill="#FFD93D">Explain</text>
+  </g>
+
+  <!-- Decorative connecting lines -->
+  <g stroke="#6BFF61" stroke-width="2" opacity="0.5">
+    <path d="M650 510 L800 510"/>
+    <path d="M800 510 L950 510"/>
+  </g>
+
+  <!-- Small flowchart icons -->
+  <g fill="none" stroke="#FF61D8" stroke-width="2">
+    <circle cx="400" cy="400" r="15"/>
+    <rect x="1200" y="300" width="30" height="30"/>
+    <path d="M600 300 L630 330 L600 360 L570 330 Z"/>
+  </g>
+</svg>

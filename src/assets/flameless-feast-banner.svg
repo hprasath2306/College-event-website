@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <!-- Gradient background -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a1a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2d2d2d;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Multiple patterns for layered effect -->
+    <pattern id="dotPattern" width="30" height="30" patternUnits="userSpaceOnUse">
+      <circle cx="15" cy="15" r="2" fill="#FFA07A" opacity="0.1"/>
+    </pattern>
+    
+    <!-- Circular frame for design elements -->
+    <clipPath id="circleClip">
+      <circle cx="400" cy="450" r="150"/>
+    </clipPath>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1600" height="900" fill="url(#bgGradient)"/>
+  <rect width="1600" height="900" fill="url(#dotPattern)"/>
+  
+  <!-- Modern geometric food elements -->
+  <!-- Salad bowl composition -->
+  <circle cx="400" cy="450" r="150" fill="none" stroke="#98FB98" stroke-width="3"/>
+  <path d="M250 450 Q 400 250 550 450" fill="none" stroke="#98FB98" stroke-width="3"/>
+  <path d="M300 400 Q 400 300 500 400" fill="none" stroke="#E6E6FA" stroke-width="2"/>
+  <path d="M320 480 Q 400 380 480 480" fill="none" stroke="#FFA07A" stroke-width="2"/>
+  
+  <!-- Modern kitchen tools on right -->
+  <g transform="translate(1200, 450)">
+    <!-- Blender silhouette -->
+    <path d="M-50 -100 L50 -100 L70 100 L-70 100 Z" fill="none" stroke="#E6E6FA" stroke-width="2"/>
+    <rect x="-30" y="-120" width="60" height="20" fill="none" stroke="#E6E6FA" stroke-width="2"/>
+    
+    <!-- Mixing bowl -->
+    <ellipse cx="150" cy="0" rx="80" ry="40" fill="none" stroke="#98FB98" stroke-width="2"/>
+    <path d="M70 0 Q 150 -50 230 0" fill="none" stroke="#98FB98" stroke-width="2"/>
+  </g>
+  
+  <!-- Dynamic food ingredients -->
+  <g transform="translate(800, 200)">
+    <!-- Stylized vegetables and ingredients -->
+    <circle cx="0" cy="0" r="20" fill="none" stroke="#FFA07A" stroke-width="2"/>
+    <circle cx="50" cy="20" r="15" fill="none" stroke="#98FB98" stroke-width="2"/>
+    <rect x="-80" y="-10" width="30" height="30" rx="5" fill="none" stroke="#E6E6FA" stroke-width="2"/>
+  </g>
+  
+  <!-- Main title with enhanced styling -->
+  <!-- Shadow effect for depth -->
+  <text x="803" y="353" font-family="Arial Black, sans-serif" font-size="72" fill="#2D2D2D" text-anchor="middle">FLAME</text>
+  <text x="800" y="350" font-family="Arial Black, sans-serif" font-size="72" fill="#FFA07A" text-anchor="middle">FLAME</text>
+  
+  <text x="803" y="433" font-family="Arial Black, sans-serif" font-size="72" fill="#2D2D2D" text-anchor="middle">FREE</text>
+  <text x="800" y="430" font-family="Arial Black, sans-serif" font-size="72" fill="#98FB98" text-anchor="middle">FREE</text>
+  
+  <text x="803" y="513" font-family="Arial Black, sans-serif" font-size="72" fill="#2D2D2D" text-anchor="middle">FEAST</text>
+  <text x="800" y="510" font-family="Arial Black, sans-serif" font-size="72" fill="#E6E6FA" text-anchor="middle">FEAST</text>
+  
+  <!-- Enhanced subtitle with icons -->
+  <text x="800" y="590" font-family="Arial, sans-serif" font-size="28" fill="#888888" text-anchor="middle">Culinary Innovation • No Heat Required</text>
+  
+  <!-- Decorative circles suggesting plates and bowls -->
+  <circle cx="200" cy="200" r="30" fill="none" stroke="#FFA07A" stroke-width="2" opacity="0.6"/>
+  <circle cx="1400" cy="700" r="40" fill="none" stroke="#98FB98" stroke-width="2" opacity="0.6"/>
+  
+  <!-- Dynamic flowing lines -->
+  <path d="M0 800 Q 400 700 800 800 T 1600 800" fill="none" stroke="#FFA07A" stroke-width="2" opacity="0.3"/>
+  <path d="M0 850 Q 400 750 800 850 T 1600 850" fill="none" stroke="#98FB98" stroke-width="2" opacity="0.3"/>
+  
+  <!-- Additional kitchen tool silhouettes -->
+  <g transform="translate(100, 600)">
+    <path d="M0 0 Q 50 -30 100 0" fill="none" stroke="#E6E6FA" stroke-width="2"/>
+    <rect x="20" y="10" width="60" height="10" rx="5" fill="none" stroke="#E6E6FA" stroke-width="2"/>
+  </g>
+  
+  <!-- Modern cooking method icons -->
+  <g transform="translate(1400, 400)">
+    <!-- Stylized mixer -->
+    <path d="M0 0 Q 20 -20 40 0 T 80 0" fill="none" stroke="#FFA07A" stroke-width="2" opacity="0.8"/>
+    <path d="M0 20 Q 20 0 40 20 T 80 20" fill="none" stroke="#FFA07A" stroke-width="2" opacity="0.8"/>
+  </g>
+</svg>
