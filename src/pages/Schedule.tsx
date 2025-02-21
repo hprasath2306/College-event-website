@@ -2,15 +2,15 @@ import { motion } from 'framer-motion'
 
 function Schedule() {
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-8 pt-24">
+    <div className="min-h-screen text-white p-8 pt-24">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="max-w-6xl mx-auto"
       >
-        <h1 className="text-4xl font-bold text-center mb-8 text-rose-500">
-          CSEUTSAV'25 EVENT SCHEDULE
-        </h1>
+        <h1 className="text-6xl md:text-7xl font-['Righteous'] mb-4 animate-slideDown">
+            Events <span className="text-[#FFF]">Schedule</span>
+          </h1>
 
         {/* Day 1 */}
         <div className="mb-12">

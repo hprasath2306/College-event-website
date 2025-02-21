@@ -112,14 +112,14 @@ const Header: React.FC = () => {
           className={`
             md:hidden fixed left-0 right-0 bg-[#1a1a1a] border-t border-gray-800
             transition-all duration-300 ease-in-out overflow-hidden
-            ${isMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'}
+            ${isMenuOpen ? 'max-h-[300px] opacity-100' : 'max-h-0 opacity-0'}
           `}
           style={{
             top: '72px',
             boxShadow: isMenuOpen ? '0 4px 6px -1px rgba(0, 0, 0, 0.1)' : 'none'
           }}
         >
-          <div className="flex flex-col items-center gap-4 p-6 font-['Poppins']">
+          <div className="flex flex-col items-center gap-3 py-4 font-['Poppins']">
             <Link 
               to="/" 
               className={`${isActive('/')} transition-colors duration-300 w-full text-center py-2`}
