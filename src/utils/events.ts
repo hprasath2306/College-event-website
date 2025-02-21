@@ -389,8 +389,8 @@ export const events = [
     "image": CodeWithComaliBanner
   },
   {
-    "id": "mini-marvels",
-    "title": "MINI MARVELS",
+    "id": "flame-free-feast",
+    "title": "Flame Free Feast",
     "description": "A fireless cooking competition where teams create miniature, visually appealing dishes using raw, edible ingredients within a 1-hour limit. The event is open to all students of CSE branch.",
     "duration": "1 Hour",
     "teamSize": "1 to 2 members",
