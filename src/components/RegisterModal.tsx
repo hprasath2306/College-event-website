@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { eventsData } from "../utils/events";
 import { motion, AnimatePresence } from "framer-motion";
+import { EventDetailsType } from "../types/event";
 
 interface Registration {
   id: string;
@@ -29,6 +29,15 @@ interface RegisterModalProps {
   eventTitle: string;
 }
 
+interface RegistrationResponse {
+  message: string;
+  registration?: {
+    id: string;
+    studentId: string;
+    eventId: string;
+  };
+}
+
 const RegisterModal = ({ isOpen, onClose, eventTitle }: RegisterModalProps) => {
   const [students, setStudents] = useState<Student[]>([]);
   const [searchQueries, setSearchQueries] = useState<string[]>(['']);
@@ -36,26 +45,33 @@ const RegisterModal = ({ isOpen, onClose, eventTitle }: RegisterModalProps) => {
   const [loading, setLoading] = useState(false);
   const [registered, setRegistered] = useState(false);
   const [error, setError] = useState('');
-
-  // Get event details from eventsData
-  const eventDetails = eventsData.find(event => event.name === eventTitle);
-  const teamSize = eventDetails?.rules.find(rule => {
-    if (typeof rule === 'string') {
-      return rule.includes('member') ? rule : false;
-    }
-    return rule.rule.includes('member') ? rule.rule : false;
-  })?.toString().match(/\d+/)?.[0] || '1';
+  const [eventDetails, setEventDetails] = useState<EventDetailsType | null>(null);
 
   useEffect(() => {
-    // Fetch students when modal opens
+    // Fetch event details and students when modal opens
     if (isOpen) {
+      fetchEventDetails();
       fetchStudents();
-      // Initialize search queries based on team size
-      setSearchQueries(new Array(parseInt(teamSize)).fill(''));
-      setSelectedStudents(new Array(parseInt(teamSize)).fill(null));
-      setError('');
     }
-  }, [isOpen, teamSize]);
+  }, [isOpen, eventTitle]);
+
+  const fetchEventDetails = async () => {
+    try {
+      const response = await axios.get('https://symposium-api-production.up.railway.app/api/events');
+      const event = response.data.find((e: EventDetailsType) => e.name === eventTitle);
+      if (event) {
+        setEventDetails(event);
+        // Initialize arrays based on team size
+        const size = event.maxTeamSize || 1;
+        setSearchQueries(new Array(size).fill(''));
+        setSelectedStudents(new Array(size).fill(null));
+        setError('');
+      }
+    } catch (error) {
+      console.error('Error fetching event details:', error);
+      setError('Failed to fetch event details');
+    }
+  };
 
   const fetchStudents = async () => {
     try {
@@ -91,29 +107,56 @@ const RegisterModal = ({ isOpen, onClose, eventTitle }: RegisterModalProps) => {
   };
 
   const handleSubmit = async () => {
-    if (selectedStudents.length !== parseInt(teamSize)) {
-      setError(`Please select ${teamSize} team member${parseInt(teamSize) > 1 ? 's' : ''}`);
+    if (!eventDetails) {
+      setError('Event details not found');
+      return;
+    }
+
+    if (selectedStudents.length !== (eventDetails?.maxTeamSize || 1)) {
+      setError(`Please select ${eventDetails?.maxTeamSize || 1} team member${(eventDetails?.maxTeamSize || 1) > 1 ? 's' : ''}`);
       return;
     }
 
     setLoading(true);
     try {
-      // Submit team registration
-      const response = await axios.post('https://symposium-api-production.up.railway.app/api/students', {
-        eventTitle,
-        studentIds: selectedStudents.map(student => student?.id)
-      });
-      console.log(response.data);
-      setRegistered(true);
-      setTimeout(() => {
-        onClose();
-        setRegistered(false);
-        setSelectedStudents(new Array(parseInt(teamSize)).fill(null));
-        setSearchQueries(new Array(parseInt(teamSize)).fill(''));
-      }, 2000);
-    } catch (error) {
-      console.error('Registration failed:', error);
-      setError('Registration failed. Please try again.');
+      // Single event registration
+      if (!eventDetails.isTeamEvent) {
+        const response = await axios.post<RegistrationResponse>(
+          'https://symposium-api-production.up.railway.app/api/registrations/single',
+          {
+            studentId: selectedStudents[0]?.id,
+            eventId: eventDetails.id
+          }
+        );
+        
+        setRegistered(true);
+        setTimeout(() => {
+          onClose();
+          setRegistered(false);
+          setSelectedStudents(new Array(eventDetails.maxTeamSize || 1).fill(null));
+          setSearchQueries(new Array(eventDetails.maxTeamSize || 1).fill(''));
+        }, 2000);
+      } else {
+        // Team registration
+        const response = await axios.post('https://symposium-api-production.up.railway.app/api/registrations/team', {
+          eventId: eventDetails.id,
+          studentIds: selectedStudents.map(student => student?.id)
+        });
+        
+        setRegistered(true);
+        setTimeout(() => {
+          onClose();
+          setRegistered(false);
+          setSelectedStudents(new Array(eventDetails.maxTeamSize || 1).fill(null));
+          setSearchQueries(new Array(eventDetails.maxTeamSize || 1).fill(''));
+        }, 2000);
+      }
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        setError(error.response?.data?.error || 'Registration failed. Please try again.');
+      } else {
+        setError('Registration failed. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
@@ -144,7 +187,7 @@ const RegisterModal = ({ isOpen, onClose, eventTitle }: RegisterModalProps) => {
         <div className="text-center mb-6">
           <h2 className="text-2xl font-['Righteous'] mb-2">Register for</h2>
           <p className="text-[#FF3366] text-xl">{eventTitle}</p>
-          <p className="text-gray-400 mt-2">Team Size: {teamSize}</p>
+          <p className="text-gray-400 mt-2">Team Size: {eventDetails?.maxTeamSize || 1}</p>
         </div>
 
         {/* Team Member Selection */}
@@ -152,7 +195,7 @@ const RegisterModal = ({ isOpen, onClose, eventTitle }: RegisterModalProps) => {
           {searchQueries.map((query, index) => (
             <div key={index} className="relative">
               <label className="block text-sm font-medium text-gray-300 mb-1">
-                {parseInt(teamSize) > 1 ? `Team Member ${index + 1}` : 'Participant'}
+                {(eventDetails?.maxTeamSize || 1) > 1 ? `Team Member ${index + 1}` : 'Participant'}
               </label>
               
               {selectedStudents[index] ? (
@@ -218,7 +261,7 @@ const RegisterModal = ({ isOpen, onClose, eventTitle }: RegisterModalProps) => {
 
         <button
           onClick={handleSubmit}
-          disabled={loading || registered || selectedStudents.length !== parseInt(teamSize)}
+          disabled={loading || registered || selectedStudents.length !== (eventDetails?.maxTeamSize || 1)}
           className="w-full bg-[#FF3366] text-white py-3 rounded-lg mt-6
                    hover:bg-[#ff1f57] transition-colors font-semibold
                    disabled:opacity-50 disabled:cursor-not-allowed"
