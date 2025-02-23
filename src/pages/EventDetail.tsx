@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import RegisterModal from '../components/RegisterModal';
 import { eventsData } from '../utils/events';
 import { EventDetailsType } from '../types/event';
+import { fetchEventsDetails } from '../utils/events';
 
 
 const EventDetail = () => {
@@ -12,13 +13,18 @@ const EventDetail = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    const fetchEventDetails = () => {
+    const fetchEventDetails = async () => {
       setLoading(true);
-      setTimeout(() => {
-        const foundEvent = eventsData.find((event) => event.id === eventId);
+      try {
+        const data = await fetchEventsDetails();
+        const foundEvent = data.find((event: any) => event.id === eventId);
         setEvent(foundEvent || null);
+      } catch (error) {
+        console.error('Error fetching event:', error);
+        setEvent(null);
+      } finally {
         setLoading(false);
-      }, 500);
+      }
     };
 
     fetchEventDetails();
@@ -55,7 +61,7 @@ const EventDetail = () => {
       {/* Hero Banner */}
       <div className="relative h-[60vh]">
         <div className="absolute inset-0">
-          <img src={event.image} className="w-full h-full object-cover" alt={event.title} />
+          <img src={event.image} className="w-full h-full object-cover" alt={event.name} />
           {/* <div className="absolute inset-0 bg-black bg-opacity-60"></div> */}
         </div>
         {/* <div className="absolute inset-0 flex flex-col justify-end p-8 text-white">
@@ -89,7 +95,9 @@ const EventDetail = () => {
               <section>
                 <h2 className="text-2xl font-['Righteous'] mb-4">Rules</h2>
                 <ul className="list-disc list-inside space-y-2 text-gray-300">
-                  {event.rules.map((rule, index) => <li key={index}>{rule}</li>)}
+                  {event.rules.map((rule: any, index) => (
+                    <li key={index}>{rule.rule || rule}</li>
+                  ))}
                 </ul>
               </section>
             )}
@@ -98,7 +106,9 @@ const EventDetail = () => {
               <section>
                 <h2 className="text-2xl font-['Righteous'] mb-4">Requirements</h2>
                 <ul className="list-disc list-inside space-y-2 text-gray-300">
-                  {event.requirements.map((req, index) => <li key={index}>{req}</li>)}
+                  {event.requirements.map((req: any, index) => (
+                    <li key={index}>{req.requirement || req}</li>
+                  ))}
                 </ul>
               </section>
             )}
@@ -158,7 +168,7 @@ const EventDetail = () => {
           </div>
         </div>
       </div>
-      <RegisterModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} eventTitle={event.title} />
+      <RegisterModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} eventTitle={event.name} />
     </div>
   );
 };

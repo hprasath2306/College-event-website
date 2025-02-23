@@ -1,15 +1,42 @@
 // src/pages/Events.tsx
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import EventCard from '../components/EventCard';
-import { events } from '../utils/events';
-
+import { fetchEventsDetails } from '../utils/events';
+import { EventDetailsType } from '../types/event';
+import { differenceInHours } from 'date-fns';
 
 const Events = () => {
   const [activeCategory, setActiveCategory] = useState('all');  
+  const [eventsDetailsData, setEventsDetailsData] = useState<EventDetailsType[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const data = await fetchEventsDetails();
+        setEventsDetailsData(data);
+      } catch (error) {
+        console.error('Error fetching events:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchEvents();
+  }, []);
 
   const filteredEvents = activeCategory === 'all' 
-    ? events 
-    : events.filter(event => event.category === activeCategory);
+    ? eventsDetailsData 
+    : eventsDetailsData.filter(event => 
+        event.category === (activeCategory === 'technical' ? 'TECHNICAL' : 'NON_TECHNICAL')
+      );
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-[#FF3366]"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen">
@@ -68,19 +95,26 @@ const Events = () => {
 
           {/* Events Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredEvents.map((event) => (
-              <div key={event.id} className="animate-fadeIn">
-                <EventCard
-                  id={event.id}
-                  title={event.title}
-                  date={event.date}
-                  description={event.description}
-                  image={event.image}
-                  duration={event.duration}
-                  teamSize={event.teamSize}
-                />
-              </div>
-            ))}
+            {filteredEvents.map((event) => {
+              // Calculate duration between start and end time
+              const startTime = new Date(event.startDate);
+              const endTime = new Date(event.endDate);
+              const durationHrs = differenceInHours(endTime, startTime);
+              
+              return (
+                <div key={event.id} className="animate-fadeIn">
+                  <EventCard
+                    id={event.id}
+                    title={event.name}
+                    date={event.startDate}
+                    description={event.description}
+                    image={event.image}
+                    duration={`${durationHrs} hr${durationHrs > 1 ? 's' : ''}`}
+                    teamSize={`${event.maxTeamSize || 1} members`}
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

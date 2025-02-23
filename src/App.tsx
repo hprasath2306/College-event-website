@@ -9,6 +9,7 @@ import EventDetail from "./pages/EventDetail";
 import Admin from "./pages/Admin";
 import Moments from "./pages/Moments";
 import Schedule from "./pages/Schedule";
+import StudentUpload from "./pages/StudentUpload";
 
 function App() {
   return (
@@ -22,8 +23,10 @@ function App() {
           <Route path="/team" element={<Team />} />
           <Route path="/moments" element={<Moments />} />
           <Route path="/events/:eventId" element={<EventDetail />} />
-          <Route path="/psnaAdmin" element={<Admin />} />
           <Route path="/schedule" element={<Schedule />} />
+
+          <Route path="/psnaAdmin" element={<Admin />} />
+          <Route path="/studentUpload" element={<StudentUpload />} />
         </Routes>
         <Footer />
       </Router>
