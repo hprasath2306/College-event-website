@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Aevents as events } from '../utils/events';
+import { Aevents } from '../utils/events';
 
 interface User {
     id: number;
@@ -12,12 +12,21 @@ interface User {
     event: string;
 }
 
+interface ApiError {
+  response?: {
+    data?: {
+      message?: string;
+    };
+  };
+}
+
 export default function Admin() {
     const [eventName, setEventName] = useState('');
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [searched, setSearched] = useState(false);
+    const [events] = useState<string[]>(Aevents);
 
     const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -29,8 +38,9 @@ export default function Admin() {
             const response = await axios.get(`https://symposium-api-production.up.railway.app/api/users/${eventName}`);
             setUsers(response.data);
             setSearched(true);
-        } catch (error: any) {
-            setError(error.response?.data?.message || 'Failed to fetch users');
+        } catch (error: unknown) {
+            const apiError = error as ApiError;
+            setError(apiError.response?.data?.message || 'Failed to fetch users');
             setUsers([]);
         } finally {
             setLoading(false);

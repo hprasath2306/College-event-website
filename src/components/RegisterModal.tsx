@@ -1,14 +1,26 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { eventsData } from "../utils/events";
 import { motion, AnimatePresence } from "framer-motion";
+
+interface Registration {
+  id: string;
+  eventTitle: string;
+  studentIds: string[];
+}
+
+interface TeamMember {
+  id: string;
+  name: string;
+  regNo: string;
+}
 
 interface Student {
   id: string;
   name: string;
   regNo: string;
-  registrations: any[];
-  TeamMember: any[];
+  registrations: Registration[];
+  TeamMember: TeamMember[];
 }
 
 interface RegisterModalProps {
@@ -91,7 +103,7 @@ const RegisterModal = ({ isOpen, onClose, eventTitle }: RegisterModalProps) => {
         eventTitle,
         studentIds: selectedStudents.map(student => student?.id)
       });
-      
+      console.log(response.data);
       setRegistered(true);
       setTimeout(() => {
         onClose();

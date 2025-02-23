@@ -1,10 +1,26 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import RegisterModal from '../components/RegisterModal';
-import { eventsData } from '../utils/events';
 import { EventDetailsType } from '../types/event';
 import { fetchEventsDetails } from '../utils/events';
 
+interface ApiError {
+  message: string;
+  status?: number;
+}
+
+// interface RegistrationResponse {
+//   success: boolean;
+//   message: string;
+//   data?: {
+//     registrationId: string;
+//     eventId: string;
+//   };
+// }
+
+// Add type for rule and requirement
+type Rule = string | { id: string; eventId: string; rule: string };
+type Requirement = string | { id: string; eventId: string; requirement: string };
 
 const EventDetail = () => {
   const { eventId } = useParams();
@@ -17,10 +33,11 @@ const EventDetail = () => {
       setLoading(true);
       try {
         const data = await fetchEventsDetails();
-        const foundEvent = data.find((event: any) => event.id === eventId);
+        const foundEvent = data.find((event: EventDetailsType) => event.id === eventId);
         setEvent(foundEvent || null);
-      } catch (error) {
-        console.error('Error fetching event:', error);
+      } catch (error: unknown) {
+        const apiError = error as ApiError;
+        console.error('Error fetching event:', apiError.message);
         setEvent(null);
       } finally {
         setLoading(false);
@@ -29,6 +46,32 @@ const EventDetail = () => {
 
     fetchEventDetails();
   }, [eventId]);
+
+  // const handleRegistration = async () => {
+  //   try {
+  //     const response = await axios.post<RegistrationResponse>(
+  //       'https://api.example.com/register',
+  //       { eventId }
+  //     );
+  //     console.log(response.data.message);
+  //   } catch (error: unknown) {
+  //     const apiError = error as ApiError;
+  //     console.error('Registration error:', apiError.message);
+  //   }
+  // };
+
+  // const handleTeamRegistration = async () => {
+  //   try {
+  //     const response = await axios.post<RegistrationResponse>(
+  //       'https://api.example.com/team-register',
+  //       { eventId }
+  //     );
+  //     console.log(response.data.message);
+  //   } catch (error: unknown) {
+  //     const apiError = error as ApiError;
+  //     console.error('Team registration error:', apiError.message);
+  //   }
+  // };
 
   if (loading) {
     return (
@@ -95,8 +138,8 @@ const EventDetail = () => {
               <section>
                 <h2 className="text-2xl font-['Righteous'] mb-4">Rules</h2>
                 <ul className="list-disc list-inside space-y-2 text-gray-300">
-                  {event.rules.map((rule: any, index) => (
-                    <li key={index}>{rule.rule || rule}</li>
+                  {event.rules.map((rule: Rule, index) => (
+                    <li key={index}>{typeof rule === 'string' ? rule : rule.rule}</li>
                   ))}
                 </ul>
               </section>
@@ -106,8 +149,8 @@ const EventDetail = () => {
               <section>
                 <h2 className="text-2xl font-['Righteous'] mb-4">Requirements</h2>
                 <ul className="list-disc list-inside space-y-2 text-gray-300">
-                  {event.requirements.map((req: any, index) => (
-                    <li key={index}>{req.requirement || req}</li>
+                  {event.requirements.map((req: Requirement, index) => (
+                    <li key={index}>{typeof req === 'string' ? req : req.requirement}</li>
                   ))}
                 </ul>
               </section>

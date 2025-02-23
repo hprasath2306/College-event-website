@@ -8,15 +8,31 @@ interface Student {
   regNo: string
 }
 
+interface UploadResponse {
+  success: boolean;
+  message: string;
+}
+
+interface ExcelRow {
+  name?: string;
+  Name?: string;
+  NAME?: string;
+  regNo?: string;
+  RegNo?: string;
+  REGNO?: string;
+  RegisterNo?: string;
+  'REG NO'?: string;
+}
+
 function StudentUpload() {
   const [uploading, setUploading] = useState(false)
   const [message, setMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null)
 
-  const transformData = (data: any[]): Student[] => {
+  const transformData = (data: ExcelRow[]): Student[] => {
     return data.map(row => ({
-      name: row.name || row.Name || row.NAME || '',  // handle different possible column names
+      name: row.name || row.Name || row.NAME || '',
       regNo: String(row.regNo || row.RegNo || row.REGNO || row['RegisterNo'] || row['REG NO'] || '')
-    })).filter(student => student.name && student.regNo) // filter out invalid entries
+    })).filter(student => student.name && student.regNo)
   }
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,7 +53,7 @@ function StudentUpload() {
         const rawData = XLSX.utils.sheet_to_json(worksheet)
         
         // Transform data to required format
-        const transformedData = transformData(rawData)
+        const transformedData = transformData(rawData as ExcelRow[])
         // console.log('Transformed data:', transformedData)
 
         if (transformedData.length === 0) {
@@ -50,11 +66,12 @@ function StudentUpload() {
 
         try {
           // Send data to API
-          const response = await axios.post('https://symposium-api-production.up.railway.app/api/students/bulk', transformedData)
+          const response: UploadResponse = await axios.post('/api/upload', transformedData)
           setMessage({
             text: `Successfully uploaded ${transformedData.length} students!`,
             type: 'success'
           })
+          console.log('Upload successful:', response.data)
         } catch (error) {
           setMessage({
             text: 'Failed to upload students. Please check the file format and try again.',
