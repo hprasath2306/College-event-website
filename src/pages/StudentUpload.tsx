@@ -11,6 +11,7 @@ interface Student {
 interface UploadResponse {
   success: boolean;
   message: string;
+  data?: never;
 }
 
 interface ExcelRow {
@@ -71,7 +72,9 @@ function StudentUpload() {
             text: `Successfully uploaded ${transformedData.length} students!`,
             type: 'success'
           })
-          console.log('Upload successful:', response.data)
+          if (response.data) {
+            console.log('Upload successful:', response.data)
+          }
         } catch (error) {
           setMessage({
             text: 'Failed to upload students. Please check the file format and try again.',
