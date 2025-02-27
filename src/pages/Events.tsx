@@ -2,8 +2,7 @@
 import { useEffect, useState } from 'react';
 import EventCard from '../components/EventCard';
 import { fetchEventsDetails } from '../utils/events';
-import { Event, EventDetailsType } from '../types/event';
-import { differenceInHours } from 'date-fns';
+import { Event } from '../types/event';
 
 const Events = () => {
   const [activeCategory, setActiveCategory] = useState('all');  

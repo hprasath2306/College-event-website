@@ -127,7 +127,7 @@ const RegisterModal = ({ isOpen, onClose, eventTitle }: RegisterModalProps) => {
     try {
       if (!eventDetails.isTeamEvent) {
         // Single event registration
-        const response = await axios.post<RegistrationResponse>(
+        await axios.post<RegistrationResponse>(
           'https://symposium-api-production.up.railway.app/api/registrations/single',
           {
             studentId: selectedStudents[0]?.id,
@@ -136,7 +136,7 @@ const RegisterModal = ({ isOpen, onClose, eventTitle }: RegisterModalProps) => {
         );
       } else {
         // Team registration with user-provided team name
-        const response = await axios.post('https://symposium-api-production.up.railway.app/api/registrations/team', {
+        await axios.post('https://symposium-api-production.up.railway.app/api/registrations/team', {
           teamName,
           eventId: eventDetails.id,
           memberIds: selectedStudents.map(student => student?.id).filter(Boolean)

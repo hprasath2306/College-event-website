@@ -90,7 +90,7 @@ const CreateEvent = () => {
             }
 
             // Then create event with the Cloudinary URL
-            const response = await axios.post('https://symposium-api-production.up.railway.app/api/events', {
+            await axios.post('https://symposium-api-production.up.railway.app/api/events', {
                 ...formData,
                 image: imageUrl,
                 rules: formData.rules.filter(rule => rule.trim()).map(rule => ({ rule })),
