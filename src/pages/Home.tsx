@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import AwesomeEvents from "../components/AwesomeEvents";
 
 const Home = () => {
   const [showEvents, setShowEvents] = useState(false);
@@ -17,6 +16,9 @@ const Home = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  if(showEvents) {
+  }
 
   return (
     <div className="relative">
@@ -37,7 +39,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <AwesomeEvents isVisible={showEvents} />
+      {/* <AwesomeEvents isVisible={showEvents} /> */}
     </div>
   );
 };
