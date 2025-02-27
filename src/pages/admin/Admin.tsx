@@ -38,7 +38,7 @@ const AdminCard = ({ title, description, icon, link }: {
       title: "View Registrations",
       description: "View and export event registrations",
       icon: "fas fa-clipboard-list",
-      link: "/admin/registrations"
+      link: "/psnaAdmin/registrations"
     },
     {
       title: "Manage Teams",

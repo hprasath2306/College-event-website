@@ -73,7 +73,8 @@ const EditModal = ({ isOpen, onClose, onSave, event, isLoading }: EditModalProps
       startDate: new Date(formData.startDate || new Date()).toISOString(),
       endDate: new Date(formData.endDate || new Date()).toISOString(),
       duration: Number(formData.duration || 0),
-      maxTeamSize: formData.type === 'TEAM' ? Number(formData.maxTeamSize) : null
+      maxTeamSize: formData.type === 'TEAM' ? Number(formData.maxTeamSize) : null,
+      whatsapp_link: formData.whatsapp_link || null
     };
     onSave(updatedEvent as any);
   };
@@ -301,6 +302,19 @@ const EditModal = ({ isOpen, onClose, onSave, event, isLoading }: EditModalProps
                     className="w-full bg-[#252525] border border-gray-700 rounded-lg px-4 py-2 mb-2"
                   />
                 ))}
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-sm font-medium mb-2">WhatsApp Link (Optional)</label>
+                <input
+                  type="url"
+                  name="whatsapp_link"
+                  value={formData.whatsapp_link || ''}
+                  onChange={handleChange}
+                  placeholder="https://chat.whatsapp.com/..."
+                  className="w-full bg-[#252525] border border-gray-700 rounded-lg px-4 py-2"
+                />
+                <p className="text-gray-500 text-xs mt-1">Add a WhatsApp group link for event updates</p>
               </div>
 
               {/* Submit Buttons */}
