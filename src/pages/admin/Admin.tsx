@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -20,7 +22,6 @@ const AdminCard = ({ title, description, icon, link }: {
   </Link>
 );
 
-export default function Admin() {
   const adminActions = [
     {
       title: "Upload Students",
@@ -47,6 +48,70 @@ export default function Admin() {
       link: "/admin/teams"
     }
   ];
+
+const Admin = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const auth = localStorage.getItem('adminAuth');
+    if (auth === 'true') {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (username === 'PsnACse' && password === '192.168.1.2025') {
+      setIsAuthenticated(true);
+      localStorage.setItem('adminAuth', 'true');
+      setError('');
+    } else {
+      setError('Invalid credentials');
+    }
+  };
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
+        <div className="bg-[#1a1a1a] rounded-xl p-8 w-full max-w-md">
+          <h1 className="text-3xl font-['Righteous'] text-white mb-8 text-center">Admin Login</h1>
+          <form onSubmit={handleLogin} className="space-y-6">
+            <div>
+              <label className="text-gray-300 text-sm">Username</label>
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="w-full bg-[#252525] border border-gray-700 rounded-lg px-4 py-2 mt-1 text-white"
+                required
+              />
+            </div>
+            <div>
+              <label className="text-gray-300 text-sm">Password</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full bg-[#252525] border border-gray-700 rounded-lg px-4 py-2 mt-1 text-white"
+                required
+              />
+            </div>
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+            <button
+              type="submit"
+              className="w-full bg-[#FF3366] text-white py-2 rounded-lg hover:bg-[#ff1f57]"
+            >
+              Login
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-8 pt-24">
@@ -75,3 +140,5 @@ export default function Admin() {
     </div>
   );
 }
+
+export default Admin;

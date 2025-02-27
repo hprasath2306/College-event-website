@@ -105,7 +105,7 @@ const Team = () => {
             Meet Our Team
           </h1>
           <p className="text-xl text-gray-300">
-            The awesome people behind FEST 2024 🚀
+            The awesome people behind FEST 2025 🚀
           </p>
         </div>
       </section>

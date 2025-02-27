@@ -75,7 +75,7 @@ const EditModal = ({ isOpen, onClose, onSave, event, isLoading }: EditModalProps
       duration: Number(formData.duration || 0),
       maxTeamSize: formData.type === 'TEAM' ? Number(formData.maxTeamSize) : null
     };
-    onSave(updatedEvent);
+    onSave(updatedEvent as any);
   };
 
   return (
@@ -370,16 +370,16 @@ const EditEvent = () => {
 
   const handleSave = async (updatedEvent: Partial<EventDetailsType>) => {
     if (!selectedEvent) return;
-    
+
     setEditLoading(true);
     try {
-      await axios.put(`http://localhost:3000/api/events/${selectedEvent.id}`, updatedEvent);
-      
+      await axios.put(`https://symposium-api-production.up.railway.app/api/events/${selectedEvent.id}`, updatedEvent);
+
       // Update local state with new data
-      setEvents(events.map(event => 
+      setEvents(events.map(event =>
         event.id === selectedEvent.id ? { ...event, ...updatedEvent } : event
       ));
-      
+
       setEditModal(false);
       setSelectedEvent(null);
     } catch (error) {
@@ -390,7 +390,29 @@ const EditEvent = () => {
     }
   };
 
-  // ... loading and error states same as DeleteEvent ...
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-[#FF3366]"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-500 text-xl mb-4">{error}</p>
+          <button
+            onClick={fetchEvents}
+            className="bg-[#FF3366] text-white px-6 py-2 rounded-lg hover:bg-[#ff1f57]"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-8 pt-24">
