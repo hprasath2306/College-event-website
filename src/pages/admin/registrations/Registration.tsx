@@ -46,6 +46,14 @@ const Registration = () => {
     fetchRegistrations();
   }, []);
 
+  if(error){
+    return (
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        
+      </div>
+    );
+  }
+
   const fetchEvents = async () => {
     try {
       const response = await axios.get('https://symposium-api-production.up.railway.app/api/events');
