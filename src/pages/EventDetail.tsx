@@ -100,7 +100,7 @@ const EventDetail = () => {
   // });
 
   return (
-    <div className="min-h-screen bg-[#121212] text-white pt-24">
+    <div className="min-h-screen">
       {/* Hero Banner */}
       <div className="relative h-[60vh]">
         <div className="absolute inset-0">
@@ -126,9 +126,9 @@ const EventDetail = () => {
       </div>
 
       {/* Content */}
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="flex flex-col lg:flex-row gap-12">
-          <div className="lg:w-1/2 space-y-6">
+      <div className="max-w-7xl mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2 space-y-8">
             <section>
               <h2 className="text-2xl font-['Righteous'] mb-4">About the Event</h2>
               <p className="text-gray-300">{event.description}</p>
@@ -205,27 +205,9 @@ const EventDetail = () => {
               </a>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="bg-[#FF3366] text-white px-8 py-3 rounded-lg hover:bg-[#ff1f57] transition-colors flex items-center justify-center gap-2"
-              >
-                <i className="fas fa-user-plus"></i>
-                Register Now
-              </button>
-
-              {event.whatsapp_link && (
-                <a
-                  href={event.whatsapp_link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-[#25D366] text-white px-8 py-3 rounded-lg hover:bg-[#128C7E] transition-colors flex items-center justify-center gap-2"
-                >
-                  <i className="fab fa-whatsapp"></i>
-                  Join WhatsApp Group
-                </a>
-              )}
-            </div>
+            <button onClick={() => setIsModalOpen(true)} className="w-full bg-[#FF3366] text-white py-3 rounded-xl hover:bg-[#ff1f57]">
+              Register Now
+            </button>
           </div>
         </div>
       </div>

@@ -33,5 +33,5 @@ export interface Event {
       role: string;
       phone: string;
     }[];
-    whatsapp_link: string;
+    whatsappLink: string;
   }
