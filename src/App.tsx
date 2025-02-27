@@ -14,6 +14,9 @@ import ManageEvents from "./pages/admin/events/ManageEvents";
 import CreateEvent from "./pages/admin/events/CreateEvent";
 import DeleteEvent from "./pages/admin/events/DeleteEvent";
 import EditEvent from "./pages/admin/events/EditEvent";
+import CreateTeam from "./pages/admin/team/CreateTeam";
+import ManageTeam from "./pages/admin/team/ManageTeam";
+
 function App() {
   return (
     <div className="bg-[#121212] text-white min-h-screen">
@@ -34,6 +37,8 @@ function App() {
           <Route path="/psnaAdmin/events/create" element={<CreateEvent />} />
           <Route path="/psnaAdmin/events/delete" element={<DeleteEvent />} />
           <Route path="/psnaAdmin/events/edit" element={<EditEvent />} />
+          <Route path="/psnaAdmin/team/create" element={<CreateTeam />} />
+          <Route path="/psnaAdmin/team" element={<ManageTeam />} />
         </Routes>
         <Footer />
       </Router>

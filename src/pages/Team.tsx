@@ -1,95 +1,43 @@
-// src/pages/Team.tsx
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 interface TeamMember {
-  id: number;
+  id: string;
   name: string;
   role: string;
-  image: string;
-  social: {
-    instagram?: string;
-    linkedin?: string;
-    github?: string;
-  };
+  imageUrl: string;
+  phone: string;
 }
 
 const Team = () => {
   const [showContent, setShowContent] = useState(false);
+  const [members, setMembers] = useState<TeamMember[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     setShowContent(true);
+    fetchTeamMembers();
   }, []);
 
-  const teamMembers: TeamMember[] = [
-    {
-      id: 1,
-      name: "John Doe",
-      role: "Event Head",
-      image: "https://source.unsplash.com/300x300/?portrait",
-      social: {
-        instagram: "https://instagram.com",
-        linkedin: "https://linkedin.com",
-        github: "https://github.com"
-      }
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      role: "Technical Lead",
-      image: "https://source.unsplash.com/301x301/?portrait",
-      social: {
-        instagram: "https://instagram.com",
-        linkedin: "https://linkedin.com",
-        github: "https://github.com"
-      }
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      role: "Technical Lead",
-      image: "https://source.unsplash.com/301x301/?portrait",
-      social: {
-        instagram: "https://instagram.com",
-        linkedin: "https://linkedin.com",
-        github: "https://github.com"
-      }
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      role: "Technical Lead",
-      image: "https://source.unsplash.com/301x301/?portrait",
-      social: {
-        instagram: "https://instagram.com",
-        linkedin: "https://linkedin.com",
-        github: "https://github.com"
-      }
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      role: "Technical Lead",
-      image: "https://source.unsplash.com/301x301/?portrait",
-      social: {
-        instagram: "https://instagram.com",
-        linkedin: "https://linkedin.com",
-        github: "https://github.com"
-      }
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      role: "Technical Lead",
-      image: "https://source.unsplash.com/301x301/?portrait",
-      social: {
-        instagram: "https://instagram.com",
-        linkedin: "https://linkedin.com",
-        github: "https://github.com"
-      }
-    },
-    
-    // Add more team members as needed
-  ];
+  const fetchTeamMembers = async () => {
+    try {
+      const response = await axios.get('https://symposium-api-production.up.railway.app/api/coordinators');
+      setMembers(response.data);
+    } catch (error) {
+      setError('Failed to load team members');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-[#FF3366]"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#121212] text-white">
@@ -113,7 +61,7 @@ const Team = () => {
       {/* Team Grid */}
       <section className="max-w-7xl mx-auto px-6 py-2 mb-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {teamMembers.map((member, index) => (
+          {members.map((member, index) => (
             <div
               key={member.id}
               className={`group relative bg-[#1a1a1a] rounded-xl overflow-hidden transform transition-all duration-500 hover:-translate-y-2 ${
@@ -125,7 +73,7 @@ const Team = () => {
             >
               <div className="relative h-80 overflow-hidden">
                 <img
-                  src={member.image}
+                  src={member.imageUrl}
                   alt={member.name}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
@@ -141,8 +89,6 @@ const Team = () => {
           ))}
         </div>
       </section>
-
-
 
       {/* Back to Top Button */}
       <button
