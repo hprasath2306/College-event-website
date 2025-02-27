@@ -20,6 +20,14 @@ const Team = () => {
     fetchTeamMembers();
   }, []);
 
+  if(error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-red-500">{error}</p>
+      </div>
+    );
+  }
+
   const fetchTeamMembers = async () => {
     try {
       const response = await axios.get('https://symposium-api-production.up.railway.app/api/coordinators');
