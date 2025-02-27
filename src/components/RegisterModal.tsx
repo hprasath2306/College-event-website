@@ -1,5 +1,27 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
+import { motion, AnimatePresence } from "framer-motion";
+import { EventDetailsType } from "../types/event";
+
+interface Registration {
+  id: string;
+  eventTitle: string;
+  studentIds: string[];
+}
+
+interface TeamMember {
+  id: string;
+  name: string;
+  regNo: string;
+}
+
+interface Student {
+  id: string;
+  name: string;
+  regNo: string;
+  registrations: Registration[];
+  TeamMember: TeamMember[];
+}
 
 interface RegisterModalProps {
   isOpen: boolean;
@@ -7,41 +29,134 @@ interface RegisterModalProps {
   eventTitle: string;
 }
 
+interface RegistrationResponse {
+  message: string;
+  registration?: {
+    id: string;
+    studentId: string;
+    eventId: string;
+  };
+}
+
 const RegisterModal = ({ isOpen, onClose, eventTitle }: RegisterModalProps) => {
-  const [name, setName] = React.useState('');
-  const [year, setYear] = React.useState('');
-  const [classSection, setClassSection] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [phone, setPhone] = React.useState('');
+  const [students, setStudents] = useState<Student[]>([]);
+  const [searchQueries, setSearchQueries] = useState<string[]>(['']);
+  const [selectedStudents, setSelectedStudents] = useState<(Student | null)[]>([]);
   const [loading, setLoading] = useState(false);
   const [registered, setRegistered] = useState(false);
-  
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const [error, setError] = useState('');
+  const [eventDetails, setEventDetails] = useState<EventDetailsType | null>(null);
+  const [teamName, setTeamName] = useState('');
+
+  useEffect(() => {
+    // Fetch event details and students when modal opens
+    if (isOpen) {
+      fetchEventDetails();
+      fetchStudents();
+    }
+  }, [isOpen, eventTitle]);
+
+  const fetchEventDetails = async () => {
+    try {
+      const response = await axios.get('https://symposium-api-production.up.railway.app/api/events');
+      const event = response.data.find((e: EventDetailsType) => e.name === eventTitle);
+      if (event) {
+        setEventDetails(event);
+        // Initialize arrays based on team size
+        const size = event.maxTeamSize || 1;
+        setSearchQueries(new Array(size).fill(''));
+        setSelectedStudents(new Array(size).fill(null));
+        setError('');
+      }
+    } catch (error) {
+      console.error('Error fetching event details:', error);
+      setError('Failed to fetch event details');
+    }
+  };
+
+  const fetchStudents = async () => {
+    try {
+      const response = await axios.get('https://symposium-api-production.up.railway.app/api/students');
+      setStudents(response.data);
+    } catch (error) {
+      console.error('Error fetching students:', error);
+      setError('Failed to fetch students');
+    }
+  };
+
+  const handleSearchChange = (value: string, index: number) => {
+    const newQueries = [...searchQueries];
+    newQueries[index] = value;
+    setSearchQueries(newQueries);
+  };
+
+  const handleStudentSelect = (student: Student, index: number) => {
+    // Check if student is already selected
+    if (selectedStudents.some(s => s?.id === student.id)) {
+      setError('This student is already selected');
+      return;
+    }
+
+    const newSelectedStudents = [...selectedStudents];
+    newSelectedStudents[index] = student;
+    setSelectedStudents(newSelectedStudents);
+    
+    // Clear the search query for this position
+    const newQueries = [...searchQueries];
+    newQueries[index] = '';
+    setSearchQueries(newQueries);
+  };
+
+  const handleSubmit = async () => {
+    if (!eventDetails) {
+      setError('Event details not found');
+      return;
+    }
+
+    if (eventDetails.isTeamEvent && !teamName.trim()) {
+      setError('Please enter a team name');
+      return;
+    }
+
+    if (selectedStudents.length !== (eventDetails?.maxTeamSize || 1)) {
+      setError(`Please select ${eventDetails?.maxTeamSize || 1} team member${(eventDetails?.maxTeamSize || 1) > 1 ? 's' : ''}`);
+      return;
+    }
+
     setLoading(true);
     try {
-      const response = await axios.post('https://symposium-api-production.up.railway.app/api/users', {
-        name,
-        year: parseInt(year),
-        section: classSection,
-        email,
-        phone,
-        event: eventTitle
-      });
-      console.log(response.data);
+      if (!eventDetails.isTeamEvent) {
+        // Single event registration
+        await axios.post<RegistrationResponse>(
+          'https://symposium-api-production.up.railway.app/api/registrations/single',
+          {
+            studentId: selectedStudents[0]?.id,
+            eventId: eventDetails.id
+          }
+        );
+      } else {
+        // Team registration with user-provided team name
+        await axios.post('https://symposium-api-production.up.railway.app/api/registrations/team', {
+          teamName,
+          eventId: eventDetails.id,
+          memberIds: selectedStudents.map(student => student?.id).filter(Boolean)
+        });
+      }
+      
       setRegistered(true);
       setTimeout(() => {
         onClose();
         setRegistered(false);
-        // Reset form
-        setName('');
-        setYear('');
-        setClassSection('');
-        setEmail('');
-        setPhone('');
-      }, 5000);
-    } catch (error) {
-      console.error('Registration failed:', error);
+        setTeamName('');
+        setSelectedStudents(new Array(eventDetails.maxTeamSize || 1).fill(null));
+        setSearchQueries(new Array(eventDetails.maxTeamSize || 1).fill(''));
+      }, 2000);
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        setError(error.response?.data?.error || 'Registration failed. Please try again.');
+      } else {
+        setError('Registration failed. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
@@ -72,141 +187,125 @@ const RegisterModal = ({ isOpen, onClose, eventTitle }: RegisterModalProps) => {
         <div className="text-center mb-6">
           <h2 className="text-2xl font-['Righteous'] mb-2">Register for</h2>
           <p className="text-[#FF3366] text-xl">{eventTitle}</p>
+          <p className="text-gray-400 mt-2">Team Size: {eventDetails?.maxTeamSize || 1}</p>
         </div>
 
-        {/* Loading Overlay */}
-        {loading && (
-          <div className="absolute inset-0 bg-[#1a1a1a]/50 backdrop-blur-sm rounded-xl flex items-center justify-center z-10">
-            <div className="flex flex-col items-center gap-4">
-              <div className="animate-spin rounded-full h-12 w-12 border-4 border-[#FF3366] border-t-transparent"></div>
-              <p className="text-white font-medium">Registering...</p>
-            </div>
-          </div>
-        )}
-
-        {/* Success Overlay */}
-        {registered && (
-          <div className="absolute inset-0 bg-[#1a1a1a]/50 backdrop-blur-sm rounded-xl flex items-center justify-center z-10">
-            <div className="flex flex-col items-center gap-4 animate-successFadeIn">
-              <div className="w-16 h-16 bg-[#FF3366] rounded-full flex items-center justify-center">
-                <i className="fas fa-check text-2xl text-white"></i>
-              </div>
-              <div className="text-center">
-                <p className="text-white text-xl font-medium mb-1">Registration Successful!</p>
-                <p className="text-gray-400">You're all set for {eventTitle}</p>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Registration Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-1">
-              Name
+        {/* Team Name Input */}
+        {eventDetails?.isTeamEvent && (
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-300 mb-1">
+              Team Name
             </label>
             <input
               type="text"
-              id="name"
-              required
-              className="w-full px-4 py-2 bg-[#252525] border border-gray-700 rounded-lg
-                       focus:outline-none focus:border-[#FF3366] transition-colors
-                       text-white placeholder-gray-500 cursor-text"
-              placeholder="Enter your name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              disabled={loading}
-            />
-          </div>
-
-          <div>
-            <label htmlFor="year" className="block text-sm font-medium text-gray-300 mb-1">
-              Year
-            </label>
-            <select
-              id="year"
-              required
+              value={teamName}
+              onChange={(e) => setTeamName(e.target.value)}
+              placeholder="Enter your team name"
               className="w-full px-4 py-2 bg-[#252525] border border-gray-700 rounded-lg
                        focus:outline-none focus:border-[#FF3366] transition-colors
                        text-white placeholder-gray-500"
-              value={year}
-              onChange={(e) => setYear(e.target.value)}
-              disabled={loading}
+              required
+            />
+          </div>
+        )}
+
+        {/* Team Member Selection */}
+        <div className="space-y-4">
+          {searchQueries.map((query, index) => (
+            <div key={index} className="relative">
+              <label className="block text-sm font-medium text-gray-300 mb-1">
+                {(eventDetails?.maxTeamSize || 1) > 1 ? `Team Member ${index + 1}` : 'Participant'}
+              </label>
+              
+              {selectedStudents[index] ? (
+                <div className="flex items-center justify-between bg-gray-800 p-3 rounded-lg">
+                  <div>
+                    <p className="text-white">{selectedStudents[index].name}</p>
+                    <p className="text-sm text-gray-400">{selectedStudents[index].regNo}</p>
+                  </div>
+                  <button
+                    onClick={() => {
+                      const newSelected = [...selectedStudents];
+                      newSelected[index] = null;
+                      setSelectedStudents(newSelected);
+                    }}
+                    className="text-red-400 hover:text-red-300"
+                  >
+                    <i className="fas fa-times" />
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <input
+                    type="text"
+                    value={query}
+                    onChange={(e) => handleSearchChange(e.target.value, index)}
+                    placeholder="Search by name or register number"
+                    className="w-full px-4 py-2 bg-[#252525] border border-gray-700 rounded-lg
+                             focus:outline-none focus:border-[#FF3366] transition-colors
+                             text-white placeholder-gray-500"
+                  />
+                  
+                  {/* Search Results */}
+                  {query && (
+                    <div className="absolute z-10 w-full mt-1 bg-[#252525] border border-gray-700 rounded-lg max-h-48 overflow-y-auto">
+                      {students
+                        .filter(student => 
+                          (student.name.toLowerCase().includes(query.toLowerCase()) ||
+                           student.regNo.toLowerCase().includes(query.toLowerCase())) &&
+                          !selectedStudents.some(s => s?.id === student.id)
+                        )
+                        .map(student => (
+                          <div
+                            key={student.id}
+                            onClick={() => handleStudentSelect(student, index)}
+                            className="p-3 hover:bg-gray-700 cursor-pointer"
+                          >
+                            <p className="text-white">{student.name}</p>
+                            <p className="text-sm text-gray-400">{student.regNo}</p>
+                          </div>
+                        ))
+                      }
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {error && (
+          <p className="text-red-400 mt-4 text-center">{error}</p>
+        )}
+
+        <button
+          onClick={handleSubmit}
+          disabled={loading || registered || selectedStudents.length !== (eventDetails?.maxTeamSize || 1)}
+          className="w-full bg-[#FF3366] text-white py-3 rounded-lg mt-6
+                   hover:bg-[#ff1f57] transition-colors font-semibold
+                   disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {loading ? 'Registering...' : 'Confirm Registration'}
+        </button>
+
+        {/* Success Message */}
+        <AnimatePresence>
+          {registered && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-[#1a1a1a]/90 backdrop-blur-sm rounded-xl flex items-center justify-center"
             >
-              <option value="">Select Year</option>
-              <option value="1">1st Year</option>
-              <option value="2">2nd Year</option>
-              <option value="3">3rd Year</option>
-              <option value="4">4th Year</option>
-            </select>
-          </div>
-
-          <div>
-            <label htmlFor="class" className="block text-sm font-medium text-gray-300 mb-1">
-              Section
-            </label>
-            <input
-              type="text"
-              id="class"
-              required
-              value={classSection}
-              onChange={(e) => setClassSection(e.target.value)}
-              className="w-full px-4 py-2 bg-[#252525] border border-gray-700 rounded-lg
-                       focus:outline-none focus:border-[#FF3366] transition-colors
-                       text-white placeholder-gray-500"
-              placeholder="e.g., A"
-              disabled={loading}
-            />
-          </div>
-
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
-              College Mail ID
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full px-4 py-2 bg-[#252525] border border-gray-700 rounded-lg
-                       focus:outline-none focus:border-[#FF3366] transition-colors
-                       text-white placeholder-gray-500"
-              placeholder="your.name@college.edu"
-              disabled={loading}
-            />
-          </div>
-
-          <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-1">
-              Phone Number
-            </label>
-            <input
-              type="tel"
-              id="phone"
-              required
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              pattern="[0-9]{10}"
-              className="w-full px-4 py-2 bg-[#252525] border border-gray-700 rounded-lg
-                       focus:outline-none focus:border-[#FF3366] transition-colors
-                       text-white placeholder-gray-500"
-              placeholder="10-digit number"
-              disabled={loading}
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="w-full bg-[#FF3366] text-white py-3 rounded-lg mt-6
-                     hover:bg-[#ff1f57] transition-colors font-semibold
-                     transform hover:scale-[1.02] active:scale-[0.98] transition-transform
-                     disabled:opacity-50 disabled:cursor-not-allowed"
-            disabled={loading}
-          >
-            {loading ? 'Submitting...' : 'Submit Registration'}
-          </button>
-        </form>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <i className="fas fa-check text-2xl text-white" />
+                </div>
+                <p className="text-white text-xl">Registration Successful!</p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

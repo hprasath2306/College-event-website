@@ -6,10 +6,14 @@ import Team from "./pages/Team";
 import Footer from "./components/Footer";
 import CustomCursor from "./components/CustomCursor";
 import EventDetail from "./pages/EventDetail";
-import Admin from "./pages/Admin";
+import Admin from "./pages/admin/Admin";
 import Moments from "./pages/Moments";
 import Schedule from "./pages/Schedule";
-
+import StudentUpload from "./pages/admin/students/StudentUpload";
+import ManageEvents from "./pages/admin/events/ManageEvents";
+import CreateEvent from "./pages/admin/events/CreateEvent";
+import DeleteEvent from "./pages/admin/events/DeleteEvent";
+import EditEvent from "./pages/admin/events/EditEvent";
 function App() {
   return (
     <div className="bg-[#121212] text-white min-h-screen">
@@ -22,8 +26,14 @@ function App() {
           <Route path="/team" element={<Team />} />
           <Route path="/moments" element={<Moments />} />
           <Route path="/events/:eventId" element={<EventDetail />} />
-          <Route path="/psnaAdmin" element={<Admin />} />
           <Route path="/schedule" element={<Schedule />} />
+
+          <Route path="/psnaAdmin" element={<Admin />} />
+          <Route path="/psnaAdmin/studentUpload" element={<StudentUpload />} />
+          <Route path="/psnaAdmin/events" element={<ManageEvents />} />
+          <Route path="/psnaAdmin/events/create" element={<CreateEvent />} />
+          <Route path="/psnaAdmin/events/delete" element={<DeleteEvent />} />
+          <Route path="/psnaAdmin/events/edit" element={<EditEvent />} />
         </Routes>
         <Footer />
       </Router>

@@ -1,4 +1,3 @@
-import { EventDetailsType } from "../types/event";
 import OopsBanner from '../assets/oops-banner.svg'
 import DejavuBanner from '../assets/dejavu-banner.svg'
 import CodeFreeBanner from '../assets/code-free-banner.svg'
@@ -13,6 +12,7 @@ import DigitalDynamoBanner from '../assets/digital-dynamo-banner.svg'
 import TechPictionaryBanner from '../assets/tech-pictionary-banner.svg'
 import IplAuctionBanner from '../assets/ipl-auction-banner.svg'
 import ClipcraftBanner from '../assets/clip-craft-banner.svg'
+import axios from "axios";
 
 export const Aevents = [
   "Oops! Fix It",
@@ -31,12 +31,16 @@ export const Aevents = [
   "Clip Craft"
 ]
 
-export const eventsData: EventDetailsType[] = [
+export const eventsData: any[] = [
   {
     id: 'oops-fix-it',
-    title: 'Oops! Fix It',
-    date: '2025-03-15',
-    time: '90 Minutes',
+    name: 'Oops! Fix It',
+    startDate: '2025-03-15',
+    endDate: '2025-03-15',
+    type: 'SINGLE',
+    category: 'TECHNICAL',
+    isTeamEvent: false,
+    maxTeamSize: 1,
     venue: 'TBA',
     image: OopsBanner,
     description: 'A solo debugging competition where participants identify, fix, and optimize buggy code under time constraints across three rounds.',
@@ -54,9 +58,13 @@ export const eventsData: EventDetailsType[] = [
   },
   {
     id: 'code-dejavu',
-    title: 'Code Dejavu',
-    date: '2025-03-20',
-    time: '90 Minutes',
+    name: 'Code Dejavu',
+    startDate: '2025-03-20',
+    endDate: '2025-03-20',
+    type: 'TEAM',
+    category: 'TECHNICAL',
+    isTeamEvent: true,
+    maxTeamSize: 2,
     venue: 'TBA',
     image: DejavuBanner,
     description: 'A team-based coding competition with unique constraints such as no loops or using a single variable, emphasizing creativity and efficiency.',
@@ -74,9 +82,13 @@ export const eventsData: EventDetailsType[] = [
   },
   {
     id: 'pitch-perfect',
-    title: 'Pitch Perfect',
-    date: '2025-03-19',
-    time: '17 Minutes',
+    name: 'Pitch Perfect',
+    startDate: '2025-03-19',
+    endDate: '2025-03-19',
+    type: 'TEAM',
+    category: 'TECHNICAL',
+    isTeamEvent: true,
+    maxTeamSize: 3,
     venue: 'TBA',
     image: PitchPerfectBanner,
     description: 'A team-based idea pitching competition where teams present and defend innovative tech solutions, followed by a Q&A round.',
@@ -93,9 +105,13 @@ export const eventsData: EventDetailsType[] = [
   },
   {
     id: 'escape-room',
-    title: 'Escape Room',
-    date: '2025-03-30',
-    time: 'TBD',
+    name: 'Escape Room',
+    startDate: '2025-03-30',
+    endDate: '2025-03-30',
+    type: 'TEAM',
+    category: 'NON_TECHNICAL',
+    isTeamEvent: true,
+    maxTeamSize: 2,
     venue: 'TBA',
     image: EscapeRoomBanner,
     description: 'A puzzle-solving competition where teams solve clues and challenges to escape within a time limit.',
@@ -112,9 +128,13 @@ export const eventsData: EventDetailsType[] = [
   },
   {
     id: 'logical-baton',
-    title: 'Logical Baton',
-    date: '2025-03-18',
-    time: '35 Minutes',
+    name: 'Logical Baton',
+    startDate: '2025-03-18',
+    endDate: '2025-03-18',
+    type: 'TEAM',
+    category: 'TECHNICAL',
+    isTeamEvent: true,
+    maxTeamSize: 3,
     venue: 'TBA',
     image: LogicalBatonBanner,
     description: 'A team-based coding relay competition where teams work sequentially, with each member handling a specific part of the program: declarations, core logic, and final output.',
@@ -131,9 +151,13 @@ export const eventsData: EventDetailsType[] = [
   },
   {
     id: 'flame-free-feast',
-    title: 'Flame Free Feast',
-    date: '2025-03-25',
-    time: '1 Hour',
+    name: 'Flame Free Feast',
+    startDate: '2025-03-25',
+    endDate: '2025-03-25',
+    type: 'TEAM',
+    category: 'NON_TECHNICAL',
+    isTeamEvent: true,
+    maxTeamSize: 4,
     venue: 'TBA',
     image: FlameLessBanner,
     description: 'A cooking competition where teams create miniature, visually appealing dishes using raw, edible ingredients.',
@@ -150,9 +174,13 @@ export const eventsData: EventDetailsType[] = [
   },
   {
     id: 'digital-dynamo',
-    title: 'DIGITAL DYNAMO',
-    date: '2025-03-26',
-    time: 'Variable (2 Rounds)',
+    name: 'DIGITAL DYNAMO',
+    startDate: '2025-03-26',
+    endDate: '2025-03-26',
+    type: 'TEAM',
+    category: 'NON_TECHNICAL',
+    isTeamEvent: true,
+    maxTeamSize: 3,
     venue: 'TBA',
     image: DigitalDynamoBanner,
     description: 'A fun quiz competition focusing on tech knowledge, computer science basics, and innovations. Includes multiple rounds like MCQs and rapid-fire.',
@@ -169,9 +197,13 @@ export const eventsData: EventDetailsType[] = [
   },
   {
     id: 'tech-pictionary',
-    title: 'TECH PICTIONARY',
-    date: '2025-03-27',
-    time: 'Variable (3 Rounds)',
+    name: 'TECH PICTIONARY',
+    startDate: '2025-03-27',
+    endDate: '2025-03-27',
+    type: 'TEAM',
+    category: 'NON_TECHNICAL',
+    isTeamEvent: true,
+    maxTeamSize: 2,
     venue: 'TBA',
     image: TechPictionaryBanner,
     description: 'A team-based drawing and guessing game where teams draw technical terms for others to guess, with easy, intermediate, and rapid-fire rounds.',
@@ -187,9 +219,13 @@ export const eventsData: EventDetailsType[] = [
   },
   {
     id: 'ipl-auction',
-    title: 'IPL Auction',
-    date: '2025-03-28',
-    time: 'Variable (2 Rounds)',
+    name: 'IPL Auction',
+    startDate: '2025-03-28',
+    endDate: '2025-03-28',
+    type: 'TEAM',
+    category: 'NON_TECHNICAL',
+    isTeamEvent: true,
+    maxTeamSize: 3,
     venue: 'TBA',
     image: IplAuctionBanner,
     description: 'A team-based competition where teams first answer IPL trivia questions and then build a roster in a live auction, using a fixed budget to bid for players.',
@@ -206,9 +242,13 @@ export const eventsData: EventDetailsType[] = [
   },
   {
     id: 'clipcraft',
-    title: 'CLIPCRAFT',
-    date: '2025-03-29',
-    time: '1-2 Minutes',
+    name: 'CLIPCRAFT',
+    startDate: '2025-03-29',
+    endDate: '2025-03-29',
+    type: 'SINGLE',
+    category: 'NON_TECHNICAL',
+    isTeamEvent: false,
+    maxTeamSize: 1,
     venue: 'TBA',
     image: ClipcraftBanner,
     description: 'A solo event where participants create 1-2 minute video clips on technology, college life, or social themes, showcasing creativity and engagement.',
@@ -225,9 +265,13 @@ export const eventsData: EventDetailsType[] = [
   },
   {
     id: 'code-free',
-    title: 'Code Free',
-    date: '2025-03-17',
-    time: '90 Minutes',
+    name: 'Code Free',
+    startDate: '2025-03-17',
+    endDate: '2025-03-17',
+    type: 'TEAM',
+    category: 'TECHNICAL',
+    isTeamEvent: true,
+    maxTeamSize: 2,
     venue: 'TBA',
     image: CodeFreeBanner,
     description: 'A team-based competition where participants solve problems without writing actual code, using pseudocode or flowcharts to analyze and solve real-world problems.',
@@ -244,9 +288,13 @@ export const eventsData: EventDetailsType[] = [
   },
   {
     id: 'design-under-pressure',
-    title: 'Design Under Pressure',
-    date: '2025-03-22',
-    time: '60 Minutes',
+    name: 'Design Under Pressure',
+    startDate: '2025-03-22',
+    endDate: '2025-03-22',
+    type: 'SINGLE',
+    category: 'TECHNICAL',
+    isTeamEvent: false,
+    maxTeamSize: 1,
     venue: 'TBA',
     image: DesignUnderPressureBanner,
     description: 'A solo design challenge where participants create a poster using Figma or Adobe XD, adapting to unexpected design constraints every 20 minutes.',
@@ -263,9 +311,13 @@ export const eventsData: EventDetailsType[] = [
   },
   {
     id: 'bite-bidders',
-    title: 'Bite Bidders',
-    date: '2025-03-23',
-    time: '40 Minutes',
+    name: 'Bite Bidders',
+    startDate: '2025-03-23',
+    endDate: '2025-03-23',
+    type: 'TEAM',
+    category: 'TECHNICAL',
+    isTeamEvent: true,
+    maxTeamSize: 2,
     venue: 'TBA',
     image: BiteBiddersBanner,
     description: 'A team-based competition where participants take a tech quiz and bid on coding challenges, with the highest-scoring team winning.',
@@ -282,9 +334,13 @@ export const eventsData: EventDetailsType[] = [
   },
   {
     id: 'code-with-comali',
-    title: 'Code with Comali',
-    date: '2025-03-24',
-    time: '35 Minutes',
+    name: 'Code with Comali',
+    startDate: '2025-03-24',
+    endDate: '2025-03-24',
+    type: 'TEAM',
+    category: 'TECHNICAL',
+    isTeamEvent: true,
+    maxTeamSize: 2,
     venue: 'TBA',
     image: CodeWithComaliBanner,
     description: 'A team-based coding and design challenge where one team member explains a coding problem while the other writes the code, followed by a design task.',
@@ -300,12 +356,12 @@ export const eventsData: EventDetailsType[] = [
       { name: 'Benedict Cumberbatch', role: 'Technical Advisor', phone: '9245678901' },
     ],
   }
-
-
-
-
 ];
 
+export const fetchEventsDetails = async () => {
+  const response = await axios.get('https://symposium-api-production.up.railway.app/api/events');
+  return (response.data);
+}
 
 export const events = [
   {
