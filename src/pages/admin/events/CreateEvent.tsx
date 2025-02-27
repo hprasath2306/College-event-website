@@ -24,6 +24,7 @@ interface EventForm {
     coordinators: Coordinator[];
     rules: string[];
     requirements: string[];
+    whatsapp_link?: string;
 }
 
 interface Notification {
@@ -46,7 +47,8 @@ const CreateEvent = () => {
         isTeamEvent: false,
         coordinators: [{ name: '', role: '', phone: '' }],
         rules: [''],
-        requirements: ['']
+        requirements: [''],
+        whatsapp_link: '',
     });
     const [loading, setLoading] = useState(false);
     const [notification, setNotification] = useState<Notification | null>(null);
@@ -120,7 +122,8 @@ const CreateEvent = () => {
                 isTeamEvent: false,
                 coordinators: [{ name: '', role: '', phone: '' }],
                 rules: [''],
-                requirements: ['']
+                requirements: [''],
+                whatsapp_link: '',
             });
             setImageFile(null);
             setImagePreview('');
@@ -433,6 +436,18 @@ const CreateEvent = () => {
                                 className="w-full bg-[#252525] border border-gray-700 rounded-lg px-4 py-2 mb-2"
                             />
                         ))}
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium mb-2">WhatsApp Link (Optional)</label>
+                        <input
+                            type="url"
+                            value={formData.whatsapp_link || ''}
+                            onChange={(e) => setFormData({ ...formData, whatsapp_link: e.target.value })}
+                            placeholder="https://chat.whatsapp.com/..."
+                            className="w-full bg-[#252525] border border-gray-700 rounded-lg px-4 py-2"
+                        />
+                        <p className="text-gray-500 text-xs mt-1">Add a WhatsApp group link for event updates</p>
                     </div>
 
                     <button
