@@ -2,12 +2,12 @@
 import { useEffect, useState } from 'react';
 import EventCard from '../components/EventCard';
 import { fetchEventsDetails } from '../utils/events';
-import { EventDetailsType } from '../types/event';
+import { Event, EventDetailsType } from '../types/event';
 import { differenceInHours } from 'date-fns';
 
 const Events = () => {
   const [activeCategory, setActiveCategory] = useState('all');  
-  const [eventsDetailsData, setEventsDetailsData] = useState<EventDetailsType[]>([]);
+  const [eventsDetailsData, setEventsDetailsData] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -95,12 +95,7 @@ const Events = () => {
 
           {/* Events Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredEvents.map((event) => {
-              // Calculate duration between start and end time
-              const startTime = new Date(event.startDate);
-              const endTime = new Date(event.endDate);
-              const durationHrs = differenceInHours(endTime, startTime);
-              
+            {filteredEvents.map((event) => {              
               return (
                 <div key={event.id} className="animate-fadeIn">
                   <EventCard
@@ -109,8 +104,8 @@ const Events = () => {
                     date={event.startDate}
                     description={event.description}
                     image={event.image}
-                    duration={`${durationHrs} hr${durationHrs > 1 ? 's' : ''}`}
-                    teamSize={`${event.maxTeamSize || 1} members`}
+                    duration={event.duration}
+                    teamSize={`${event.maxTeamSize || 1}`}
                   />
                 </div>
               );

@@ -1,7 +1,11 @@
 export interface Event {
     id: string;
+    name: string;
     title: string;
     date: string;
+    maxTeamSize: number;
+    startDate: string;
+    endDate: string;
     description: string;
     image: string;
     duration: string;
@@ -20,6 +24,8 @@ export interface Event {
     endDate: string;
     isTeamEvent: boolean;
     maxTeamSize?: number;
+    duration: number;
+    image: string;
     rules: Array<{ id: string; eventId: string; rule: string } | string>;
     requirements: Array<{ id: string; eventId: string; requirement: string } | string>;
     coordinators: {
@@ -27,5 +33,4 @@ export interface Event {
       role: string;
       phone: string;
     }[];
-    image: string;
   }

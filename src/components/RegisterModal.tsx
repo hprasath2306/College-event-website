@@ -46,6 +46,7 @@ const RegisterModal = ({ isOpen, onClose, eventTitle }: RegisterModalProps) => {
   const [registered, setRegistered] = useState(false);
   const [error, setError] = useState('');
   const [eventDetails, setEventDetails] = useState<EventDetailsType | null>(null);
+  const [teamName, setTeamName] = useState('');
 
   useEffect(() => {
     // Fetch event details and students when modal opens
@@ -112,6 +113,11 @@ const RegisterModal = ({ isOpen, onClose, eventTitle }: RegisterModalProps) => {
       return;
     }
 
+    if (eventDetails.isTeamEvent && !teamName.trim()) {
+      setError('Please enter a team name');
+      return;
+    }
+
     if (selectedStudents.length !== (eventDetails?.maxTeamSize || 1)) {
       setError(`Please select ${eventDetails?.maxTeamSize || 1} team member${(eventDetails?.maxTeamSize || 1) > 1 ? 's' : ''}`);
       return;
@@ -119,8 +125,8 @@ const RegisterModal = ({ isOpen, onClose, eventTitle }: RegisterModalProps) => {
 
     setLoading(true);
     try {
-      // Single event registration
       if (!eventDetails.isTeamEvent) {
+        // Single event registration
         const response = await axios.post<RegistrationResponse>(
           'https://symposium-api-production.up.railway.app/api/registrations/single',
           {
@@ -128,29 +134,23 @@ const RegisterModal = ({ isOpen, onClose, eventTitle }: RegisterModalProps) => {
             eventId: eventDetails.id
           }
         );
-        
-        setRegistered(true);
-        setTimeout(() => {
-          onClose();
-          setRegistered(false);
-          setSelectedStudents(new Array(eventDetails.maxTeamSize || 1).fill(null));
-          setSearchQueries(new Array(eventDetails.maxTeamSize || 1).fill(''));
-        }, 2000);
       } else {
-        // Team registration
+        // Team registration with user-provided team name
         const response = await axios.post('https://symposium-api-production.up.railway.app/api/registrations/team', {
+          teamName,
           eventId: eventDetails.id,
-          studentIds: selectedStudents.map(student => student?.id)
+          memberIds: selectedStudents.map(student => student?.id).filter(Boolean)
         });
-        
-        setRegistered(true);
-        setTimeout(() => {
-          onClose();
-          setRegistered(false);
-          setSelectedStudents(new Array(eventDetails.maxTeamSize || 1).fill(null));
-          setSearchQueries(new Array(eventDetails.maxTeamSize || 1).fill(''));
-        }, 2000);
       }
+      
+      setRegistered(true);
+      setTimeout(() => {
+        onClose();
+        setRegistered(false);
+        setTeamName('');
+        setSelectedStudents(new Array(eventDetails.maxTeamSize || 1).fill(null));
+        setSearchQueries(new Array(eventDetails.maxTeamSize || 1).fill(''));
+      }, 2000);
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         setError(error.response?.data?.error || 'Registration failed. Please try again.');
@@ -189,6 +189,25 @@ const RegisterModal = ({ isOpen, onClose, eventTitle }: RegisterModalProps) => {
           <p className="text-[#FF3366] text-xl">{eventTitle}</p>
           <p className="text-gray-400 mt-2">Team Size: {eventDetails?.maxTeamSize || 1}</p>
         </div>
+
+        {/* Team Name Input */}
+        {eventDetails?.isTeamEvent && (
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-300 mb-1">
+              Team Name
+            </label>
+            <input
+              type="text"
+              value={teamName}
+              onChange={(e) => setTeamName(e.target.value)}
+              placeholder="Enter your team name"
+              className="w-full px-4 py-2 bg-[#252525] border border-gray-700 rounded-lg
+                       focus:outline-none focus:border-[#FF3366] transition-colors
+                       text-white placeholder-gray-500"
+              required
+            />
+          </div>
+        )}
 
         {/* Team Member Selection */}
         <div className="space-y-4">

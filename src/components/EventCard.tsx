@@ -21,11 +21,11 @@ const EventCard = ({
   teamSize,
 }: EventCardProps) => {
   // Format date to show just the day and month
-  const formattedDate = format(new Date(date), 'MMM d');
-  
-  // Simple duration display
-  const formattedDuration = duration.split(' ')[0] + ' min';
+  //I need like this format 2025-12-31 
+  const formattedDate = format(new Date(date), 'yyyy-MM-dd');
 
+  const members = teamSize === '1' ? 'member' : 'members';
+  
   return (
     <div className="bg-[#1a1a1a] rounded-xl overflow-hidden shadow-lg 
                     hover:shadow-[0_0_20px_rgba(255,51,102,0.2)] transition-all duration-300
@@ -48,10 +48,10 @@ const EventCard = ({
           </p>
           <ul className="flex flex-wrap gap-4 text-sm text-gray-300">
             <li className="flex items-center gap-2">
-              <i className="fas fa-clock"></i> {formattedDuration}
+              <i className="fas fa-clock"></i> {duration} Minutes
             </li>
             <li className="flex items-center gap-2">
-              <i className="fas fa-users"></i> {teamSize}
+              <i className="fas fa-users"></i> {teamSize+' '+members}
             </li>
           </ul>
         </div>
