@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import EventCard from "./EventCard";
-import { Event } from "../types/event";
 import BiteBiddersBanner from '../assets/bite-bidders-banner.svg'
 import DesignUnderPressureBanner from '../assets/design-pressure-banner.svg'
 import OopsBanner from '../assets/oops-banner.svg'
@@ -8,7 +7,7 @@ interface AwesomeEventsProps {
   isVisible: boolean;
 }
 
-const featuredEvents: Event[] = [
+const featuredEvents: any[] = [
   {
     "id": "bite-bidders",
     "title": "Bite Bidders",

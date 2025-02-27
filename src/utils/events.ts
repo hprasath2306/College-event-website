@@ -1,4 +1,3 @@
-import { EventDetailsType } from "../types/event";
 import OopsBanner from '../assets/oops-banner.svg'
 import DejavuBanner from '../assets/dejavu-banner.svg'
 import CodeFreeBanner from '../assets/code-free-banner.svg'
@@ -32,7 +31,7 @@ export const Aevents = [
   "Clip Craft"
 ]
 
-export const eventsData: EventDetailsType[] = [
+export const eventsData: any[] = [
   {
     id: 'oops-fix-it',
     name: 'Oops! Fix It',
