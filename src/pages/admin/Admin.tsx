@@ -44,7 +44,7 @@ const AdminCard = ({ title, description, icon, link }: {
       title: "Manage Teams",
       description: "View and manage event coordinators",
       icon: "fas fa-users",
-      link: "/admin/teams"
+      link: "/psnaAdmin/team"
     }
   ];
 

@@ -88,7 +88,7 @@ const CreateEvent = () => {
                     throw new Error('Image upload failed');
                 }
             }
-
+            
             // Then create event with the Cloudinary URL
             await axios.post('https://symposium-api-production.up.railway.app/api/events', {
                 ...formData,
