@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
+import * as XLSX from 'xlsx';
 
 interface Student {
   id: string;
@@ -46,10 +47,119 @@ const Registration = () => {
     fetchRegistrations();
   }, []);
 
+  const exportToExcel = () => {
+    const dataToExport = filteredRegistrations.reduce((acc: any[], registration) => {
+      if (registration.event.isTeamEvent && registration.team) {
+        // Add team header row
+        acc.push({
+          'Event Name': registration.event.name,
+          'Registration Date': new Date(registration.createdAt).toLocaleDateString(),
+          'Registration Type': 'Team',
+          'Team Name': registration.team.name,
+          'Participant Name': '',
+          'Roll No': '',
+          'Registration No': '',
+          'Department': '',
+          'Year': '',
+          'Email': ''
+        });
+
+        // Add team members
+        registration.team.members.forEach(member => {
+          acc.push({
+            'Event Name': '',
+            'Registration Date': '',
+            'Registration Type': '',
+            'Team Name': '↳', // Arrow indicating team member
+            'Participant Name': member.student.name,
+            'Roll No': member.student.rollNo,
+            'Registration No': member.student.regNo,
+            'Department': member.student.department,
+            'Year': member.student.year,
+            'Email': member.student.email
+          });
+        });
+
+        // Add empty row for spacing between teams
+        acc.push({
+          'Event Name': '',
+          'Registration Date': '',
+          'Registration Type': '',
+          'Team Name': '',
+          'Participant Name': '',
+          'Roll No': '',
+          'Registration No': '',
+          'Department': '',
+          'Year': '',
+          'Email': ''
+        });
+      } else {
+        // Individual events
+        acc.push({
+          'Event Name': registration.event.name,
+          'Registration Date': new Date(registration.createdAt).toLocaleDateString(),
+          'Registration Type': 'Individual',
+          'Team Name': '-',
+          'Participant Name': registration.student?.name,
+          'Roll No': registration.student?.rollNo,
+          'Registration No': registration.student?.regNo,
+          'Department': registration.student?.department,
+          'Year': registration.student?.year,
+          'Email': registration.student?.email
+        });
+
+        // Add empty row for spacing between registrations
+        acc.push({
+          'Event Name': '',
+          'Registration Date': '',
+          'Registration Type': '',
+          'Team Name': '',
+          'Participant Name': '',
+          'Roll No': '',
+          'Registration No': '',
+          'Department': '',
+          'Year': '',
+          'Email': ''
+        });
+      }
+      return acc;
+    }, []);
+
+    const ws = XLSX.utils.json_to_sheet(dataToExport);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Registrations');
+
+    // Auto-size columns
+    const colWidths = Object.keys(dataToExport[0] || {}).map(key => ({
+      wch: Math.max(key.length, 20)
+    }));
+    ws['!cols'] = colWidths;
+
+    // Add some style to the worksheet
+    const range = XLSX.utils.decode_range(ws['!ref'] || 'A1');
+    for (let R = range.s.r; R <= range.e.r; ++R) {
+      for (let C = range.s.c; C <= range.e.c; ++C) {
+        const cell_address = {r: R, c: C};
+        const cell_ref = XLSX.utils.encode_cell(cell_address);
+        if (!ws[cell_ref]) continue;
+        
+        // Make the header row bold
+        if (R === 0) {
+          ws[cell_ref].s = {
+            font: { bold: true },
+            fill: { fgColor: { rgb: "EFEFEF" } }
+          };
+        }
+      }
+    }
+
+    XLSX.writeFile(wb, `Event_Registrations_${new Date().toLocaleDateString()}.xlsx`);
+  };
+
   if(error){
     return (
       <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-        
+        <div className="text-red-500 text-xl">{error}</div>
       </div>
     );
   }
@@ -99,7 +209,7 @@ const Registration = () => {
         </div>
 
         {/* Event Filter */}
-        <div className="mb-8">
+        <div className="mb-8 flex justify-between items-center">
           <select
             value={selectedEvent}
             onChange={(e) => setSelectedEvent(e.target.value)}
@@ -112,6 +222,16 @@ const Registration = () => {
               </option>
             ))}
           </select>
+          
+          <button
+            onClick={exportToExcel}
+            className="bg-[#FF3366] hover:bg-[#FF4D7D] text-white px-6 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
+            </svg>
+            Export to Excel
+          </button>
         </div>
 
         {/* Registrations Grid */}
