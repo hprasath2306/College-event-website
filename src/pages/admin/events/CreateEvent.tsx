@@ -330,10 +330,21 @@ const CreateEvent = () => {
                         <textarea
                             value={formData.description}
                             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                            className="w-full bg-[#252525] border border-gray-700 rounded-lg px-4 py-2"
-                            rows={4}
+                            className="w-full bg-[#252525] border border-gray-700 rounded-lg px-4 py-2 font-mono whitespace-pre-wrap"
+                            style={{ whiteSpace: 'pre-wrap' }}
+                            rows={8}
                             required
+                            placeholder="Enter description here...
+Example:
+    Round 1: Technical Quiz
+        - Multiple choice questions
+        - Time: 30 minutes
+    
+    Round 2: Coding Challenge
+        - Problem solving
+        - Platform: HackerRank"
                         />
+                        <p className="text-gray-500 text-xs mt-1">Spaces and line breaks will be preserved exactly as entered</p>
                     </div>
 
                     {/* Coordinators Section */}

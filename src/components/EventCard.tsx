@@ -43,7 +43,7 @@ const EventCard = ({
         </div>
         <div className="p-6">
           <h3 className="text-xl font-semibold mb-2">{title}</h3>
-          <p className="text-gray-400 mb-4">
+          <p className="text-gray-400 whitespace-pre-wrap font-mono text-sm mb-4" style={{ whiteSpace: 'pre-wrap' }}>
             {description}
           </p>
           <ul className="flex flex-wrap gap-4 text-sm text-gray-300">

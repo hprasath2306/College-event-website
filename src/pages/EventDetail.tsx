@@ -131,7 +131,9 @@ const EventDetail = () => {
           <div className="lg:col-span-2 space-y-8">
             <section>
               <h2 className="text-2xl font-['Righteous'] mb-4">About the Event</h2>
-              <p className="text-gray-300">{event.description}</p>
+              <p className="text-gray-300 whitespace-pre-wrap font-mono text-sm" style={{ whiteSpace: 'pre-wrap' }}>
+                {event.description}
+              </p>
             </section>
 
             {event.rules.length > 0 && (
@@ -139,7 +141,9 @@ const EventDetail = () => {
                 <h2 className="text-2xl font-['Righteous'] mb-4">Rules</h2>
                 <ul className="list-disc list-inside space-y-2 text-gray-300">
                   {event.rules.map((rule: Rule, index) => (
-                    <li key={index}>{typeof rule === 'string' ? rule : rule.rule}</li>
+                    <li key={index} className="whitespace-pre-wrap" style={{ whiteSpace: 'pre-wrap' }}>
+                      {typeof rule === 'string' ? rule : rule.rule}
+                    </li>
                   ))}
                 </ul>
               </section>
@@ -150,7 +154,9 @@ const EventDetail = () => {
                 <h2 className="text-2xl font-['Righteous'] mb-4">Requirements</h2>
                 <ul className="list-disc list-inside space-y-2 text-gray-300">
                   {event.requirements.map((req: Requirement, index) => (
-                    <li key={index}>{typeof req === 'string' ? req : req.requirement}</li>
+                    <li key={index} className="whitespace-pre-wrap" style={{ whiteSpace: 'pre-wrap' }}>
+                      {typeof req === 'string' ? req : req.requirement}
+                    </li>
                   ))}
                 </ul>
               </section>
