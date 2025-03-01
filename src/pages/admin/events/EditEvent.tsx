@@ -74,7 +74,7 @@ const EditModal = ({ isOpen, onClose, onSave, event, isLoading }: EditModalProps
       endDate: new Date(formData.endDate || new Date()).toISOString(),
       duration: Number(formData.duration || 0),
       maxTeamSize: formData.type === 'TEAM' ? Number(formData.maxTeamSize) : null,
-      whatsappLink: formData.whatsappLink || null
+      whatsapp_link: formData.whatsapp_link || null
     };
     onSave(updatedEvent as any);
   };
@@ -308,8 +308,8 @@ const EditModal = ({ isOpen, onClose, onSave, event, isLoading }: EditModalProps
                 <label className="block text-sm font-medium mb-2">WhatsApp Link (Optional)</label>
                 <input
                   type="url"
-                  name="whatsapp_link"
-                  value={formData.whatsappLink || ''}
+                  name="whatsappLink"
+                  value={formData.whatsapp_link || ''}
                   onChange={handleChange}
                   placeholder="https://chat.whatsapp.com/..."
                   className="w-full bg-[#252525] border border-gray-700 rounded-lg px-4 py-2"

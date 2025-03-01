@@ -99,6 +99,8 @@ const EventDetail = () => {
   //   day: 'numeric',
   // });
 
+  console.log(event.whatsapp_link);
+
   return (
     <div className="min-h-screen">
       {/* Hero Banner */}
@@ -200,15 +202,19 @@ const EventDetail = () => {
 
             <div className="bg-[#1a1a1a] p-6 rounded-xl">
               <h3 className="text-xl font-['Righteous'] mb-4">Join Event Group</h3>
-              <a 
-                href="https://chat.whatsapp.com/your-group-invite-link"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full bg-[#25D366] text-white py-3 rounded-xl hover:bg-[#128C7E] flex items-center justify-center gap-2 transition-colors"
-              >
-                <i className="fab fa-whatsapp text-xl"></i>
-                Join WhatsApp Group
-              </a>
+              {event.whatsapp_link ? (
+                <a 
+                  href={event.whatsapp_link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full bg-[#25D366] text-white py-3 rounded-xl hover:bg-[#128C7E] flex items-center justify-center gap-2 transition-colors"
+                >
+                  <i className="fab fa-whatsapp text-xl"></i>
+                  Join WhatsApp Group
+                </a>
+              ) : (
+                <p className="text-gray-400 text-center">No WhatsApp group available</p>
+              )}
             </div>
 
             <button onClick={() => setIsModalOpen(true)} className="w-full bg-[#FF3366] text-white py-3 rounded-xl hover:bg-[#ff1f57]">
