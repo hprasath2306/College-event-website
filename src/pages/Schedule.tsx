@@ -15,7 +15,7 @@ function Schedule() {
         {/* Day 1 */}
         <div className="mb-12">
           <h2 className="text-2xl font-semibold mb-4 text-emerald-400">
-            DAY 1 - 17/03/25
+            DAY 1 - 19/03/25
           </h2>
           <div className="overflow-x-auto">
             <table className="w-full border-collapse">
@@ -36,7 +36,7 @@ function Schedule() {
                     <div className="text-sm text-gray-400">(Lab)</div>
                   </td>
                   <td className="border border-gray-700 p-4">
-                    <div>Pitch Perfect</div>
+                    <div>Digital Dynamo</div>
                     <div className="text-sm text-gray-400">(Classroom)</div>
                   </td>
                 </tr>
@@ -45,12 +45,12 @@ function Schedule() {
                     10:55 am-12:35pm
                   </td>
                   <td className="border border-gray-700 p-4">
-                    <div>Code Dejavu</div>
+                    <div>Code With Comali</div>
                     <div className="text-sm text-gray-400">(Lab)</div>
                   </td>
                   <td className="border border-gray-700 p-4">
-                    <div>Escape Room</div>
-                    <div className="text-sm text-gray-400">(Classroom)</div>
+                    <div>-</div>
+                    <div className="text-sm text-gray-400"></div>
                   </td>
                 </tr>
                 <tr>
@@ -58,12 +58,12 @@ function Schedule() {
                     2:00 pm-4:00 pm
                   </td>
                   <td className="border border-gray-700 p-4">
-                    <div>Oops Fix it!</div>
+                    <div>Byte Bidders</div>
                     <div className="text-sm text-gray-400">(Lab)</div>
                   </td>
                   <td className="border border-gray-700 p-4">
-                    <div>Digital Dynamo</div>
-                    <div className="text-sm text-gray-400">(Classroom)</div>
+                    <div>-</div>
+                    <div className="text-sm text-gray-400"></div>
                   </td>
                 </tr>
               </tbody>
@@ -74,7 +74,7 @@ function Schedule() {
         {/* Day 2 */}
         <div>
           <h2 className="text-2xl font-semibold mb-4 text-emerald-400">
-            DAY 2 - 18/03/25
+            DAY 2 - 20/03/25
           </h2>
           <div className="overflow-x-auto">
             <table className="w-full border-collapse">
@@ -91,12 +91,12 @@ function Schedule() {
                     9:00 am-10:35am
                   </td>
                   <td className="border border-gray-700 p-4">
-                    <div>Code with Comali</div>
+                    <div>Oops Fix it!</div>
                     <div className="text-sm text-gray-400">(Lab)</div>
                   </td>
                   <td className="border border-gray-700 p-4">
-                    <div>Code Free</div>
-                    <div className="text-sm text-gray-400">(Classroom)</div>
+                    <div>-</div>
+                    <div className="text-sm text-gray-400"></div>
                   </td>
                 </tr>
                 <tr>
@@ -104,12 +104,12 @@ function Schedule() {
                     10:55 am-12:35pm
                   </td>
                   <td className="border border-gray-700 p-4">
-                    <div>Bite Bidders</div>
+                    <div>Logical Baton</div>
                     <div className="text-sm text-gray-400">(Lab)</div>
                   </td>
                   <td className="border border-gray-700 p-4">
-                    <div>Tech Pictionary</div>
-                    <div className="text-sm text-gray-400">(Classroom)</div>
+                    <div>-</div>
+                    <div className="text-sm text-gray-400">-</div>
                   </td>
                 </tr>
                 <tr>
@@ -125,6 +125,20 @@ function Schedule() {
                     <div className="text-sm text-gray-400">(Classroom)</div>
                   </td>
                 </tr>
+                
+                <tr>
+                  <td className="border border-gray-700 p-4 text-center">
+                    11:00 am-4:00 pm
+                  </td>
+                  <td className="border border-gray-700 p-4">
+                    <div>-</div>
+                    <div className="text-sm text-gray-400"></div>
+                  </td>
+                  <td className="border border-gray-700 p-4">
+                    <div>The Franchise Formation</div>
+                    <div className="text-sm text-gray-400">(Classroom)</div>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -132,39 +146,30 @@ function Schedule() {
 
         {/* Day 3 */}
         <div className="my-12">
-          <h2 className="text-2xl font-semibold mb-4 text-emerald-400">
-            DAY 3 - 19/03/25
-          </h2>
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse">
+      <table className="w-full border-collapse">
+              <thead>
+                <tr className="bg-gray-800">
+                  <th className="border border-gray-700 p-4">TIME SLOTS</th>
+                  <th className="border border-gray-700 p-4">EVENTS</th>
+                  <th className="border border-gray-700 p-4">EVENTS</th>
+                </tr>
+              </thead>
               <tbody>
                 <tr>
+                  <td className="border border-gray-700 p-4 text-center">
+                    11:30 am - 12:30pm
+                  </td>
                   <td className="border border-gray-700 p-4">
-                    <div>Clip Craft</div>
-                    <div className="text-sm text-gray-400">(Online Event)</div>
+                    <div>Project Expo</div>
+                    <div className="text-sm text-gray-400">(Classroom)</div>
+                  </td>
+                  <td className="border border-gray-700 p-4">
+                    <div>Code Free</div>
+                    <div className="text-sm text-gray-400">(Classroom)</div>
                   </td>
                 </tr>
               </tbody>
             </table>
-          </div>
-        </div>
-
-        {/* Day 4 */}
-        <div>
-          <h2 className="text-2xl font-semibold mb-4 text-emerald-400">
-            DAY 4 - 21/03/25
-          </h2>
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse">
-              <tbody>
-                <tr>
-                  <td className="border border-gray-700 p-4">
-                    <div>Flame-Free Feast</div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
         </div>
 
       </motion.div>
