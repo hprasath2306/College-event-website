@@ -146,6 +146,9 @@ function Schedule() {
 
         {/* Day 3 */}
         <div className="my-12">
+          <h2 className="text-2xl font-semibold mb-4 text-emerald-400">
+            DAY 2 - 20/03/25
+          </h2>
       <table className="w-full border-collapse">
               <thead>
                 <tr className="bg-gray-800">
