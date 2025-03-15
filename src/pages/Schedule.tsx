@@ -66,6 +66,20 @@ function Schedule() {
                     <div className="text-sm text-gray-400"></div>
                   </td>
                 </tr>
+
+                 <tr>
+                  <td className="border border-gray-700 p-4 text-center">
+                    11:00 am-4:00 pm
+                  </td>
+                  <td className="border border-gray-700 p-4">
+                    <div>-</div>
+                    <div className="text-sm text-gray-400"></div>
+                  </td>
+                  <td className="border border-gray-700 p-4">
+                    <div>The Franchise Formation</div>
+                    <div className="text-sm text-gray-400">(Classroom)</div>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -86,6 +100,7 @@ function Schedule() {
                 </tr>
               </thead>
               <tbody>
+                
                 <tr>
                   <td className="border border-gray-700 p-4 text-center">
                     9:00 am-10:35am
@@ -93,6 +108,20 @@ function Schedule() {
                   <td className="border border-gray-700 p-4">
                     <div>Oops Fix it!</div>
                     <div className="text-sm text-gray-400">(Lab)</div>
+                  </td>
+                  <td className="border border-gray-700 p-4">
+                    <div>-</div>
+                    <div className="text-sm text-gray-400"></div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td className="border border-gray-700 p-4 text-center">
+                    9:30 am-12:00am
+                  </td>
+                  <td className="border border-gray-700 p-4">
+                    <div>The Algorithmic Palate</div>
+                    <div className="text-sm text-gray-400">(Classroom)</div>
                   </td>
                   <td className="border border-gray-700 p-4">
                     <div>-</div>
@@ -112,33 +141,7 @@ function Schedule() {
                     <div className="text-sm text-gray-400">-</div>
                   </td>
                 </tr>
-                <tr>
-                  <td className="border border-gray-700 p-4 text-center">
-                    2:00 pm-4:00 pm
-                  </td>
-                  <td className="border border-gray-700 p-4">
-                    <div>Logical Baton</div>
-                    <div className="text-sm text-gray-400">(Lab)</div>
-                  </td>
-                  <td className="border border-gray-700 p-4">
-                    <div>IPL Auction</div>
-                    <div className="text-sm text-gray-400">(Classroom)</div>
-                  </td>
-                </tr>
-                
-                <tr>
-                  <td className="border border-gray-700 p-4 text-center">
-                    11:00 am-4:00 pm
-                  </td>
-                  <td className="border border-gray-700 p-4">
-                    <div>-</div>
-                    <div className="text-sm text-gray-400"></div>
-                  </td>
-                  <td className="border border-gray-700 p-4">
-                    <div>The Franchise Formation</div>
-                    <div className="text-sm text-gray-400">(Classroom)</div>
-                  </td>
-                </tr>
+          
               </tbody>
             </table>
           </div>
