@@ -43,7 +43,7 @@ const Header: React.FC = () => {
             className="text-2xl font-['Righteous'] text-white hover:text-[#FF3366] transition-colors"
             replace
           >
-            CSEUTSAV'25 🚀
+            CSEUTSAV'25 
           </Link>
 
           {/* Hamburger Menu Button */}
