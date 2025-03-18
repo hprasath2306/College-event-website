@@ -25,7 +25,7 @@ function App() {
         <CustomCursor />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/events" element={<Events />} />
+          {/* <Route path="/events" element={<Events />} /> */}
           <Route path="/team" element={<Team />} />
           <Route path="/moments" element={<Moments />} />
           <Route path="/events/:eventId" element={<EventDetail />} />

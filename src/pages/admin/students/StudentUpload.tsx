@@ -67,7 +67,7 @@ function StudentUpload() {
 
         try {
           // Send data to API
-          const response: UploadResponse = await axios.post('/api/upload', transformedData)
+          const response: UploadResponse = await axios.post('http://localhost:3000/api/students/bulk', transformedData)
           setMessage({
             text: `Successfully uploaded ${transformedData.length} students!`,
             type: 'success'

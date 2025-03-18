@@ -75,13 +75,13 @@ const Header: React.FC = () => {
             >
               Home
             </Link>
-            <Link 
+            {/* <Link 
               to="/events" 
               className={`${isActive('/events')} transition-colors duration-300`}
               replace
             >
               Events
-            </Link>
+            </Link> */}
             <Link 
               to="/team" 
               className={`${isActive('/team')} transition-colors duration-300`}
@@ -127,13 +127,13 @@ const Header: React.FC = () => {
             >
               Home
             </Link>
-            <Link 
+            {/* <Link 
               to="/events" 
               className={`${isActive('/events')} transition-colors duration-300 w-full text-center py-2`}
               replace
             >
               Events
-            </Link>
+            </Link> */}
             <Link 
               to="/team" 
               className={`${isActive('/team')} transition-colors duration-300 w-full text-center py-2`}
