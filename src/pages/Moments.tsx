@@ -20,6 +20,8 @@ const Moments = () => {
         fetchImages();
     }, []);
 
+    console.log(isUploading);
+
     const fetchImages = async () => {
         try {
             setLoading(true);
