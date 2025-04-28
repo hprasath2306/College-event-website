@@ -185,7 +185,7 @@ const Moments = () => {
                                 />
                             </div>
 
-                            <button
+{/*                             <button
                                 type="submit"
                                 disabled={!selectedFile || isUploading}
                                 className="w-full bg-[#FF3366] text-white py-3 rounded-lg
@@ -204,7 +204,7 @@ const Moments = () => {
                                         Share Moment
                                     </>
                                 )}
-                            </button>
+                            </button> */}
                         </form>
                     </div>
                 </div>
