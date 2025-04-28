@@ -106,6 +106,7 @@ const Moments = () => {
             <div className="max-w-7xl mx-auto px-6 flex justify-center">
                 <button
                     onClick={() => setShowUploadModal(true)}
+                    disabled={true}
                     className="bg-[#FF3366] text-white px-8 py-4 rounded-xl
                    hover:bg-[#ff1f57] transition-colors font-semibold
                    flex items-center gap-2"
