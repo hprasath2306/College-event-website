@@ -112,7 +112,7 @@ const Moments = () => {
                    flex items-center gap-2"
                 >
                     <i className="fas fa-camera"></i>
-                    Share Your Moment
+                    Share Your Moment is disable since the event is over
                 </button>
             </div>
 
